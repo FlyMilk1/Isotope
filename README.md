@@ -1,6 +1,6 @@
 # Isotope
 
-A real-time 2D physics simulation server, built on [Rubidium](#).
+A real-time 2D physics simulation server, built on [Rubidium](https://github.com/FlyMilk1/Rubidium).
 
 Isotope loads a scene described in JSON, steps it forward in time using the
 Rubidium physics engine, and streams the resulting state to every connected
