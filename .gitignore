@@ -1,0 +1,11 @@
+# Ruby / Bundler
+*.gem
+*.rbc
+.bundle/
+vendor/bundle/
+pkg/
+
+# Temporary files
+*.swp
+*~
+.DS_Store
