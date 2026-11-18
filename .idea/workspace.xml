@@ -8,7 +8,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="93ed2195-febd-415d-a93d-6365f90604c0" name="Changes" comment="Enhance Ruby coverage configuration with pattern exclusions">
+      <change beforePath="$PROJECT_DIR$/.idea/Isotope.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Isotope.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gemfile" beforeDir="false" afterPath="$PROJECT_DIR$/Gemfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gemfile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/Gemfile.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,23 +60,23 @@
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.0" />
-      <entry key="MS500" value="1.0" />
-      <entry key="S2" value="1.0" />
-      <entry key="S5" value="1.0000000000012677" />
-      <entry key="S10" value="1.0000016727358347" />
-      <entry key="S30" value="1.0317535944918383" />
-      <entry key="S60" value="1.5361017621335469" />
-      <entry key="M2" value="3.624066923661136" />
-      <entry key="M5" value="11.284278443434529" />
-      <entry key="M10" value="22.723419586966177" />
-      <entry key="M15" value="31.101418794311844" />
-      <entry key="M30" value="45.10345030701052" />
-      <entry key="H1" value="55.68848087829831" />
-      <entry key="H2" value="62.293487953226176" />
-      <entry key="H4" value="65.99661115762828" />
-      <entry key="D1" value="69.31076205502492" />
-      <entry key="W1" value="69.90098273122764" />
+      <entry key="MS100" value="1.779426243103502" />
+      <entry key="MS500" value="2.1434276739928007" />
+      <entry key="S2" value="2.649645316643071" />
+      <entry key="S5" value="2.842941737585336" />
+      <entry key="S10" value="2.91833501840071" />
+      <entry key="S30" value="3.002940701223789" />
+      <entry key="S60" value="3.5147130178421238" />
+      <entry key="M2" value="5.599033636654805" />
+      <entry key="M5" value="13.253211941871267" />
+      <entry key="M10" value="24.692160624631285" />
+      <entry key="M15" value="33.07289984428457" />
+      <entry key="M30" value="47.08277264464399" />
+      <entry key="H1" value="57.67571586041894" />
+      <entry key="H2" value="64.28634844055574" />
+      <entry key="H4" value="67.99282918689929" />
+      <entry key="D1" value="71.31010007208552" />
+      <entry key="W1" value="71.90088735688867" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
@@ -95,23 +98,23 @@
       <entry key="W1" value="0.0" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="0.757858283255199" />
-      <entry key="MS500" value="0.9460576467255959" />
-      <entry key="S2" value="0.9862327044933592" />
-      <entry key="S5" value="0.9944701686744253" />
-      <entry key="S10" value="0.9972328774449706" />
-      <entry key="S30" value="1.030297491609458" />
-      <entry key="S60" value="1.5308542901254423" />
-      <entry key="M2" value="3.612473723133771" />
-      <entry key="M5" value="11.26717316670731" />
-      <entry key="M10" value="22.706845230159836" />
-      <entry key="M15" value="31.0871558401761" />
-      <entry key="M30" value="45.09408200613051" />
-      <entry key="H1" value="55.683077095585375" />
-      <entry key="H2" value="62.29058123726923" />
-      <entry key="H4" value="65.99510311092982" />
-      <entry key="D1" value="69.31050280369347" />
-      <entry key="W1" value="69.9009454973672" />
+      <entry key="MS100" value="0.9334929587875135" />
+      <entry key="MS500" value="1.3600886668193994" />
+      <entry key="S2" value="2.3115146115700247" />
+      <entry key="S5" value="2.689765740985316" />
+      <entry key="S10" value="2.8384104498445457" />
+      <entry key="S30" value="2.9750042010857207" />
+      <entry key="S60" value="3.4961841205572814" />
+      <entry key="M2" value="5.580819873474025" />
+      <entry key="M5" value="13.233467993345739" />
+      <entry key="M10" value="24.674265275829374" />
+      <entry key="M15" value="33.05775390522568" />
+      <entry key="M30" value="47.07296050549294" />
+      <entry key="H1" value="57.67008922433487" />
+      <entry key="H2" value="64.28333000534062" />
+      <entry key="H4" value="67.99126519882267" />
+      <entry key="D1" value="71.30983148504174" />
+      <entry key="W1" value="71.90084878904669" />
     </decayedShown>
   </component>
   <component name="ProjectColorInfo">{
@@ -138,31 +141,33 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "JavaScript Debug.test.html.executor": "Run",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.MCP Project settings loaded": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.ruby.rubocop.migration.global.runOnSaveToExternalFormatter": "true",
-    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "Test::Unit/Shoulda/Minitest.AgooTest.rb.executor": "Run",
-    "codeWithMe.voiceChat.enabledByDefault": "false",
-    "copilot.chat.legacySessionMetadata.migrated": "true",
-    "git-widget-placeholder": "main",
-    "git.auto.fetch.suggestion.counter": "1",
-    "last_opened_file_path": "/home/Dancho/RubymineProjects/Isotope",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.jshint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.jshint": "",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "ruby.structure.view.model.defaults.configured": "true",
-    "settings.editor.selected.configurable": "reference.settings.ide.settings.web.browsers"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;JavaScript Debug.test.html.executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ruby.rubocop.migration.global.runOnSaveToExternalFormatter&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;Test::Unit/Shoulda/Minitest.AgooTest.rb.executor&quot;: &quot;Run&quot;,
+    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
+    &quot;com.intellij.lang.ruby.rbs.tools.collection.workspace.sync.RbsCollectionUpdateProjectActivity#LAST_UPDATE_TIMESTAMP&quot;: &quot;1794983134261&quot;,
+    &quot;copilot.chat.legacySessionMetadata.migrated&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;git.auto.fetch.suggestion.counter&quot;: &quot;1&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/dancho/repos/Rubidium&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.jshint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.jshint&quot;: &quot;&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;ruby.structure.view.model.defaults.configured&quot;: &quot;true&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.ide.settings.web.browsers&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
@@ -330,6 +335,13 @@
       </list>
     </recent_temporary>
   </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-56aff7b04f6f-JavaScript-RM-263.7307.205" />
+      </set>
+    </attachedChunks>
+  </component>
   <component name="SpringUtil" SPRING_PRE_LOADER_OPTION="true" RAKE_SPRING_PRE_LOADER_OPTION="true" RAILS_SPRING_PRE_LOADER_OPTION="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -340,6 +352,10 @@
       <updated>1789990151009</updated>
       <workItem from="1789990153837" duration="573000" />
       <workItem from="1789991660380" duration="1550000" />
+      <workItem from="1794469935500" duration="1161000" />
+      <workItem from="1794471122747" duration="470000" />
+      <workItem from="1794983075727" duration="735000" />
+      <workItem from="1794999343296" duration="601000" />
     </task>
     <task id="LOCAL-00001" summary="Add project configuration files and .gitignore">
       <option name="closed" value="true" />

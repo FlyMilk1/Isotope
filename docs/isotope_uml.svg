@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1480 1080" width="100%" height="auto">
+
+    <defs>
+      <marker id="arrow-solid" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+        <path d="M 0 1.5 L 9 5 L 0 8.5 z" fill="#334155"/>
+      </marker>
+      <marker id="arrow-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+        <path d="M 0 1.5 L 9 5 L 0 8.5 z" fill="#1d4ed8"/>
+      </marker>
+      <marker id="arrow-teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+        <path d="M 0 1.5 L 9 5 L 0 8.5 z" fill="#0f766e"/>
+      </marker>
+      <marker id="arrow-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+        <path d="M 0 1.5 L 9 5 L 0 8.5 z" fill="#6d28d9"/>
+      </marker>
+      <marker id="arrow-orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+        <path d="M 0 1.5 L 9 5 L 0 8.5 z" fill="#c2410c"/>
+      </marker>
+      <marker id="uml-open-arrow" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="8" markerHeight="8" orient="auto">
+        <path d="M 2 2 L 10 6 L 2 10" fill="none" stroke="#334155" stroke-width="1.6"/>
+      </marker>
+      <marker id="uml-inherit" viewBox="0 0 14 14" refX="12" refY="7" markerWidth="10" markerHeight="10" orient="auto">
+        <path d="M 2 2 L 12 7 L 2 12 z" fill="#ffffff" stroke="#334155" stroke-width="1.5"/>
+      </marker>
+      <marker id="uml-comp" viewBox="0 0 16 12" refX="1" refY="6" markerWidth="11" markerHeight="9" orient="auto">
+        <path d="M 1 6 L 8 1.5 L 15 6 L 8 10.5 z" fill="#1e293b" stroke="#1e293b" stroke-width="1"/>
+      </marker>
+      <marker id="uml-aggr" viewBox="0 0 16 12" refX="1" refY="6" markerWidth="11" markerHeight="9" orient="auto">
+        <path d="M 1 6 L 8 1.5 L 15 6 L 8 10.5 z" fill="#ffffff" stroke="#1e293b" stroke-width="1.4"/>
+      </marker>
+    </defs>
+    
+<rect width="1480" height="1080" fill="#f8fafc"/>
+<rect x="20" y="22" width="295" height="405" rx="10" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="6,4"/>
+<text x="35" y="45" font-family="'DejaVu Sans', 'Liberation Sans', 'Noto Sans', Arial, sans-serif" font-size="13" font-weight="700" fill="#334155">Package: Agoo (C Server Extension)</text>
+<rect x="335" y="22" width="1125" height="608" rx="10" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.5"/>
+<text x="352" y="45" font-family="'DejaVu Sans', 'Liberation Sans', 'Noto Sans', Arial, sans-serif" font-size="13" font-weight="700" fill="#1e3a8a">Package: Isotope &amp; Isotope::Handlers</text>
+<rect x="20" y="655" width="1440" height="400" rx="10" fill="#f0fdfa" stroke="#5eead4" stroke-width="1.5"/>
+<text x="35" y="678" font-family="'DejaVu Sans', 'Liberation Sans', 'Noto Sans', Arial, sans-serif" font-size="13" font-weight="700" fill="#115e59">Package: Rubidium (rubidium_physics gem)</text>
+<path d="M 380 117 L 295 117" fill="none" stroke="#475569" stroke-width="1.6" stroke-dasharray="5,4" marker-end="url(#arrow-solid)"/>
+<rect x="318.8" y="96" width="38.400000000000006" height="14" rx="3" fill="#ffffff" opacity="0.92"/>
+<text x="338" y="106" text-anchor="middle" font-family="'DejaVu Sans', 'Liberation Sans', 'Noto Sans', Arial, sans-serif" font-size="9.5" font-weight="600" fill="#475569">«uses»</text>
+<path d="M 492.5 267.5 L 492.5 340" fill="none" stroke="#1e293b" stroke-width="1.6" marker-start="url(#uml-comp)" marker-end="url(#uml-open-arrow)"/>
+<rect x="479.2" y="298" width="25.6" height="14" rx="3" fill="#ffffff" opacity="0.92"/>
+<text x="492" y="308" text-anchor="middle" font-family="'DejaVu Sans', 'Liberation Sans', 'Noto Sans', Arial, sans-serif" font-size="9.5" font-weight="600" fill="#1e293b">owns</text>
+<path d="M 695 134 L 770 134" fill="none" stroke="#1e293b" stroke-width="1.6" marker-start="url(#uml-comp)" marker-end="url(#uml-open-arrow)"/>
+<rect x="719.2" y="116" width="25.6" height="14" rx="3" fill="#ffffff" opacity="0.92"/>
+<text x="732" y="126" text-anchor="middle" font-family="'DejaVu Sans', 'Liberation Sans', 'Noto Sans', Arial, sans-serif" font-size="9.5" font-weight="600" fill="#1e293b">owns</text>
+<path d="M 592.5 267.5 L 592.5 296 L 825 296 L 825 340" fill="none" stroke="#1e293b" stroke-width="1.6" marker-start="url(#uml-comp)" marker-end="url(#uml-open-arrow)"/>
+<rect x="707.2" y="279" width="25.6" height="14" rx="3" fill="#ffffff" opacity="0.92"/>
+<text x="720" y="289" text-anchor="middle" font-family="'DejaVu Sans', 'Liberation Sans', 'Noto Sans', Arial, sans-serif" font-size="9.5" font-weight="600" fill="#1e293b">owns</text>
+<path d="M 355 385 L 295 385" fill="none" stroke="#334155" stroke-width="1.6" marker-start="url(#uml-aggr)" marker-end="url(#uml-open-arrow)"/>
+<rect x="286.6" y="367" width="76.80000000000001" height="14" rx="3" fill="#ffffff" opacity="0.92"/>
+<text x="325" y="377" text-anchor="middle" font-family="'DejaVu Sans', 'Liberation Sans', 'Noto Sans', Arial, sans-serif" font-size="9.5" font-weight="600" fill="#334155">0..* clients</text>
+<path d="M 695 440 L 770 440" fill="none" stroke="#1d4ed8" stroke-width="1.6" marker-end="url(#arrow-blue)"/>
+<rect x="700.0" y="422" width="64.0" height="14" rx="3" fill="#ffffff" opacity="0.92"/>
+<text x="732" y="432" text-anchor="middle" font-family="'DejaVu Sans', 'Liberation Sans', 'Noto Sans', Arial, sans-serif" font-size="9.5" font-weight="600" fill="#1d4ed8">dispatches</text>
+<path d="M 965.0 224.0 L 965.0 340" fill="none" stroke="#1d4ed8" stroke-width="1.6" marker-end="url(#arrow-blue)"/>
+<rect x="933.0" y="284" width="64.0" height="14" rx="3" fill="#ffffff" opacity="0.92"/>
+<text x="965" y="294" text-anchor="middle" font-family="'DejaVu Sans', 'Liberation Sans', 'Noto Sans', Arial, sans-serif" font-size="9.5" font-weight="600" fill="#1d4ed8">dispatches</text>
+<path d="M 825 224.0 L 825 316 L 667 316 L 667 340" fill="none" stroke="#0369a1" stroke-width="1.6" stroke-dasharray="5,4" marker-start="url(#uml-aggr)" marker-end="url(#arrow-solid)"/>
+<rect x="716.2" y="300" width="57.6" height="14" rx="3" fill="#ffffff" opacity="0.92"/>
+<text x="745" y="310" text-anchor="middle" font-family="'DejaVu Sans', 'Liberation Sans', 'Noto Sans', Arial, sans-serif" font-size="9.5" font-weight="600" fill="#0369a1">broadcast</text>
+<path d="M 1105 365 L 1175 365" fill="none" stroke="#2563eb" stroke-width="1.6" stroke-dasharray="5,4" marker-end="url(#arrow-blue)"/>
+<rect x="1120.8" y="345" width="38.400000000000006" height="14" rx="3" fill="#ffffff" opacity="0.92"/>
+<text x="1140" y="355" text-anchor="middle" font-family="'DejaVu Sans', 'Liberation Sans', 'Noto Sans', Arial, sans-serif" font-size="9.5" font-weight="600" fill="#2563eb">«uses»</text>
+<path d="M 1105 500 L 1175 500" fill="none" stroke="#b91c1c" stroke-width="1.6" stroke-dasharray="5,4" marker-end="url(#arrow-solid)"/>
+<rect x="1114.4" y="482" width="51.2" height="14" rx="3" fill="#ffffff" opacity="0.92"/>
+<text x="1140" y="492" text-anchor="middle" font-family="'DejaVu Sans', 'Liberation Sans', 'Noto Sans', Arial, sans-serif" font-size="9.5" font-weight="600" fill="#b91c1c">«raises»</text>
+<path d="M 800 632.5 L 800 642 L 185.0 642 L 185.0 695" fill="none" stroke="#0f766e" stroke-width="1.6" marker-start="url(#uml-comp)" marker-end="url(#arrow-teal)"/>
+<rect x="430.6" y="626" width="108.80000000000001" height="14" rx="3" fill="#ffffff" opacity="0.92"/>
+<text x="485" y="636" text-anchor="middle" font-family="'DejaVu Sans', 'Liberation Sans', 'Noto Sans', Arial, sans-serif" font-size="9.5" font-weight="600" fill="#0f766e">0..* scenes by ID</text>
+<path d="M 1310.0 375.5 L 1310.0 422 L 1140 422 L 1140 672 L 1310.0 672 L 1310.0 695" fill="none" stroke="#0f766e" stroke-width="1.6" stroke-dasharray="5,4" marker-end="url(#arrow-teal)"/>
+<rect x="1111.2" y="558" width="57.6" height="14" rx="3" fill="#ffffff" opacity="0.92"/>
+<text x="1140" y="568" text-anchor="middle" font-family="'DejaVu Sans', 'Liberation Sans', 'Noto Sans', Arial, sans-serif" font-size="9.5" font-weight="600" fill="#0f766e">«Oj JSON»</text>
+<path d="M 330 757 L 400 757" fill="none" stroke="#0f766e" stroke-width="1.6" marker-start="url(#uml-comp)" marker-end="url(#arrow-teal)"/>
+<rect x="352.2" y="738" width="25.6" height="14" rx="3" fill="#ffffff" opacity="0.92"/>
+<text x="365" y="748" text-anchor="middle" font-family="'DejaVu Sans', 'Liberation Sans', 'Noto Sans', Arial, sans-serif" font-size="9.5" font-weight="600" fill="#0f766e">0..*</text>
+<path d="M 705 757 L 785 757" fill="none" stroke="#0f766e" stroke-width="1.6" marker-start="url(#uml-comp)" marker-end="url(#arrow-teal)"/>
+<rect x="709.8" y="738" width="70.4" height="14" rx="3" fill="#ffffff" opacity="0.92"/>
+<text x="745" y="748" text-anchor="middle" font-family="'DejaVu Sans', 'Liberation Sans', 'Noto Sans', Arial, sans-serif" font-size="9.5" font-weight="600" fill="#0f766e">pos/vel/acc</text>
+<path d="M 705 880.5 L 745 880.5 L 745 889.0 L 785 889.0" fill="none" stroke="#0d9488" stroke-width="1.6" marker-start="url(#uml-aggr)" marker-end="url(#arrow-teal)"/>
+<rect x="752.2" y="868" width="25.6" height="14" rx="3" fill="#ffffff" opacity="0.92"/>
+<text x="765" y="878" text-anchor="middle" font-family="'DejaVu Sans', 'Liberation Sans', 'Noto Sans', Arial, sans-serif" font-size="9.5" font-weight="600" fill="#0d9488">0..1</text>
+<path d="M 777.5 965 L 777.5 940 L 907.5 940 L 907.5 913" fill="none" stroke="#0f766e" stroke-width="1.6" marker-end="url(#uml-inherit)"/>
+<path d="M 1010.0 965 L 1010.0 940 L 907.5 940 L 907.5 913" fill="none" stroke="#0f766e" stroke-width="1.6" marker-end="url(#uml-inherit)"/>
+<path d="M 1310.0 801.0 L 1310.0 1036 L 185.0 1036 L 185.0 857.0" fill="none" stroke="#0f766e" stroke-width="1.6" stroke-dasharray="5,4" marker-end="url(#arrow-teal)"/>
+<rect x="436.8" y="1019" width="166.4" height="14" rx="3" fill="#ffffff" opacity="0.92"/>
+<text x="520" y="1029" text-anchor="middle" font-family="'DejaVu Sans', 'Liberation Sans', 'Noto Sans', Arial, sans-serif" font-size="9.5" font-weight="600" fill="#0f766e">serializes / loads Scene2D</text>
+<rect x="42" y="72" width="255" height="106.0" rx="5" fill="#cbd5e1" opacity="0.45"/>
+<rect x="40" y="70" width="255" height="106.0" rx="5" fill="#ffffff" stroke="#334155" stroke-width="1.5"/>
+<path d="M 40 75 Q 40 70 45 70 L 290 70 Q 295 70 295 75 L 295 108 L 40 108 Z" fill="#475569"/>
+<text x="167.5" y="83" text-anchor="middle" font-family="'DejaVu Sans', 'Liberation Sans', 'Noto Sans', Arial, sans-serif" font-size="9.5" fill="#ffffff" opacity="0.9">«C extension module»</text>
+<text x="167.5" y="99" text-anchor="middle" font-family="'DejaVu Sans', 'Liberation Sans', 'Noto Sans', Arial, sans-serif" font-size="11.5" font-weight="700" fill="#ffffff">Agoo::Server</text>
+<text x="48" y="121.0" font-family="'DejaVu Sans Mono', 'Liberation Mono', Consolas, monospace" font-size="9.5" fill="#0f172a">+ init(port, root, options)$</text>
+<text x="48" y="135.5" font-family="'DejaVu Sans Mono', 'Liberation Mono', Consolas, monospace" font-size="9.5" fill="#0f172a">+ handle(method, pattern, handler)$</text>
+<text x="48" y="150.0" font-family="'DejaVu Sans Mono', 'Liberation Mono', Consolas, monospace" font-size="9.5" fill="#0f172a">+ start()$</text>
+<text x="48" y="164.5" font-family="'DejaVu Sans Mono', 'Liberation Mono', Consolas, monospace" font-size="9.5" fill="#0f172a">+ shutdown()$</text>
+<rect x="42" y="227" width="255" height="149.5" rx="5" fill="#cbd5e1" opacity="0.45"/>
+<rect x="40" y="225" width="255" height="149.5" rx="5" fill="#ffffff" stroke="#334155" stroke-width="1.5"/>
+<path d="M 40 230 Q 40 225 45 225 L 290 225 Q 295 225 295 230 L 295 263 L 40 263 Z" fill="#475569"/>
+<text x="167.5" y="238" text-anchor="middle" font-family="'DejaVu Sans', 'Liberation Sans', 'Noto Sans', Arial, sans-serif" font-size="9.5" fill="#ffffff" opacity="0.9">«C extension proxy»</text>
+<text x="167.5" y="254" text-anchor="middle" font-family="'DejaVu Sans', 'Liberation Sans', 'Noto Sans', Arial, sans-serif" font-size="11.5" font-weight="700" fill="#ffffff">Agoo::Upgraded</text>
+<text x="48" y="276.0" font-family="'DejaVu Sans Mono', 'Liberation Mono', Consolas, monospace" font-size="9.5" fill="#0f172a">+ write(msg) : Boolean</text>
+<text x="48" y="290.5" font-family="'DejaVu Sans Mono', 'Liberation Mono', Consolas, monospace" font-size="9.5" fill="#0f172a">+ open?() : Boolean</text>
+<text x="48" y="305.0" font-family="'DejaVu Sans Mono', 'Liberation Mono', Consolas, monospace" font-size="9.5" fill="#0f172a">+ close() : void</text>
+<text x="48" y="319.5" font-family="'DejaVu Sans Mono', 'Liberation Mono', Consolas, monospace" font-size="9.5" fill="#0f172a">+ pending() : Integer</text>
+<text x="48" y="334.0" font-family="'DejaVu Sans Mono', 'Liberation Mono', Consolas, monospace" font-size="9.5" fill="#0f172a">+ protocol() : Symbol</text>
+<text x="48" y="348.5" font-family="'DejaVu Sans Mono', 'Liberation Mono', Consolas, monospace" font-size="9.5" fill="#0f172a">+ subscribe(subject) : void</text>
+<text x="48" y="363.0" font-family="'DejaVu Sans Mono', 'Liberation Mono', Consolas, monospace" font-size="9.5" fill="#0f172a">+ unsubscribe(subject) : void</text>
+<rect x="382" y="64" width="315" height="205.5" rx="5" fill="#cbd5e1" opacity="0.45"/>
+<rect x="380" y="62" width="315" height="205.5" rx="5" fill="#ffffff" stroke="#1e40af" stroke-width="1.5"/>
+<path d="M 380 67 Q 380 62 385 62 L 690 62 Q 695 62 695 67 L 695 88 L 380 88 Z" fill="#1d4ed8"/>
+<text x="537.5" y="79" text-anchor="middle" font-family="'DejaVu Sans', 'Liberation Sans', 'Noto Sans', Arial, sans-serif" font-size="11.5" font-weight="700" fill="#ffffff">Isotope::Server</text>
+<text x="388" y="101.0" font-family="'DejaVu Sans Mono', 'Liberation Mono', Consolas, monospace" font-size="9.5" fill="#1e293b">+ port : Integer</text>
+<text x="388" y="115.5" font-family="'DejaVu Sans Mono', 'Liberation Mono', Consolas, monospace" font-size="9.5" fill="#1e293b">+ root : String</text>
+<text x="388" y="130.0" font-family="'DejaVu Sans Mono', 'Liberation Mono', Consolas, monospace" font-size="9.5" fill="#1e293b">+ scene_manager : SceneManager</text>
+<text x="388" y="144.5" font-family="'DejaVu Sans Mono', 'Liberation Mono', Consolas, monospace" font-size="9.5" fill="#1e293b">+ ws_handler : WebSocketHandler</text>
+<text x="388" y="159.0" font-family="'DejaVu Sans Mono', 'Liberation Mono', Consolas, monospace" font-size="9.5" fill="#1e293b">+ http_handler : SceneHttpHandler</text>
+<text x="388" y="173.5" font-family="'DejaVu Sans Mono', 'Liberation Mono', Consolas, monospace" font-size="9.5" fill="#1e293b">- started : Boolean</text>
+<line x1="380" y1="185.0" x2="695" y2="185.0" stroke="#1e40af" stroke-width="1"/>
+<text x="388" y="198.0" font-family="'DejaVu Sans Mono', 'Liberation Mono', Consolas, monospace" font-size="9.5" fill="#0f172a">+ initialize(port:, root:, thread_count:, ...)</text>
+<text x="388" y="212.5" font-family="'DejaVu Sans Mono', 'Liberation Mono', Consolas, monospace" font-size="9.5" fill="#0f172a">+ start() : Server</text>
+<text x="388" y="227.0" font-family="'DejaVu Sans Mono', 'Liberation Mono', Consolas, monospace" font-size="9.5" fill="#0f172a">+ stop() : void</text>
+<text x="388" y="241.5" font-family="'DejaVu Sans Mono', 'Liberation Mono', Consolas, monospace" font-size="9.5" fill="#0f172a">+ started?() : Boolean</text>
+<text x="388" y="256.0" font-family="'DejaVu Sans Mono', 'Liberation Mono', Consolas, monospace" font-size="9.5" fill="#0f172a">- register_routes() : void</text>
+<rect x="357" y="342" width="340" height="205.5" rx="5" fill="#cbd5e1" opacity="0.45"/>
+<rect x="355" y="340" width="340" height="205.5" rx="5" fill="#ffffff" stroke="#075985" stroke-width="1.5"/>
+<path d="M 355 345 Q 355 340 360 340 L 690 340 Q 695 340 695 345 L 695 366 L 355 366 Z" fill="#0369a1"/>
+<text x="525.0" y="357" text-anchor="middle" font-family="'DejaVu Sans', 'Liberation Sans', 'Noto Sans', Arial, sans-serif" font-size="11.5" font-weight="700" fill="#ffffff">Isotope::Handlers::WebSocketHandler</text>
+<text x="363" y="379.0" font-family="'DejaVu Sans Mono', 'Liberation Mono', Consolas, monospace" font-size="9.5" fill="#1e293b">- scene_manager : SceneManager</text>
+<text x="363" y="393.5" font-family="'DejaVu Sans Mono', 'Liberation Mono', Consolas, monospace" font-size="9.5" fill="#1e293b">- clients : Set&lt;Agoo::Upgraded&gt;</text>
+<text x="363" y="408.0" font-family="'DejaVu Sans Mono', 'Liberation Mono', Consolas, monospace" font-size="9.5" fill="#1e293b">- subscriptions : Hash&lt;id, Set&lt;Upgraded&gt;&gt;</text>
+<text x="363" y="422.5" font-family="'DejaVu Sans Mono', 'Liberation Mono', Consolas, monospace" font-size="9.5" fill="#1e293b">- mutex : Mutex</text>
+<line x1="355" y1="434.0" x2="695" y2="434.0" stroke="#075985" stroke-width="1"/>
+<text x="363" y="447.0" font-family="'DejaVu Sans Mono', 'Liberation Mono', Consolas, monospace" font-size="9.5" fill="#0f172a">+ call(env) : RackResponse</text>
+<text x="363" y="461.5" font-family="'DejaVu Sans Mono', 'Liberation Mono', Consolas, monospace" font-size="9.5" fill="#0f172a">+ on_open(client) : void</text>
+<text x="363" y="476.0" font-family="'DejaVu Sans Mono', 'Liberation Mono', Consolas, monospace" font-size="9.5" fill="#0f172a">+ on_close(client) : void</text>
+<text x="363" y="490.5" font-family="'DejaVu Sans Mono', 'Liberation Mono', Consolas, monospace" font-size="9.5" fill="#0f172a">+ on_message(client, raw_data) : void</text>
+<text x="363" y="505.0" font-family="'DejaVu Sans Mono', 'Liberation Mono', Consolas, monospace" font-size="9.5" fill="#0f172a">+ broadcast(scene_id, payload, exclude:) : void</text>
+<text x="363" y="519.5" font-family="'DejaVu Sans Mono', 'Liberation Mono', Consolas, monospace" font-size="9.5" fill="#0f172a">+ clear_scene_subscriptions(scene_id) : void</text>
+<text x="363" y="534.0" font-family="'DejaVu Sans Mono', 'Liberation Mono', Consolas, monospace" font-size="9.5" fill="#0f172a">- dispatch_action(client, action, msg) : Hash</text>
+<rect x="772" y="64" width="330" height="162.0" rx="5" fill="#cbd5e1" opacity="0.45"/>
+<rect x="770" y="62" width="330" height="162.0" rx="5" fill="#ffffff" stroke="#075985" stroke-width="1.5"/>
+<path d="M 770 67 Q 770 62 775 62 L 1095 62 Q 1100 62 1100 67 L 1100 88 L 770 88 Z" fill="#0369a1"/>
+<text x="935.0" y="79" text-anchor="middle" font-family="'DejaVu Sans', 'Liberation Sans', 'Noto Sans', Arial, sans-serif" font-size="11.5" font-weight="700" fill="#ffffff">Isotope::Handlers::SceneHttpHandler</text>
+<text x="778" y="101.0" font-family="'DejaVu Sans Mono', 'Liberation Mono', Consolas, monospace" font-size="9.5" fill="#1e293b">+ JSON_HEADERS : Hash</text>
+<text x="778" y="115.5" font-family="'DejaVu Sans Mono', 'Liberation Mono', Consolas, monospace" font-size="9.5" fill="#1e293b">- scene_manager : SceneManager</text>
+<text x="778" y="130.0" font-family="'DejaVu Sans Mono', 'Liberation Mono', Consolas, monospace" font-size="9.5" fill="#1e293b">- ws_handler : WebSocketHandler?</text>
+<line x1="770" y1="141.5" x2="1100" y2="141.5" stroke="#075985" stroke-width="1"/>
+<text x="778" y="154.5" font-family="'DejaVu Sans Mono', 'Liberation Mono', Consolas, monospace" font-size="9.5" fill="#0f172a">+ initialize(scene_manager, ws_handler: nil)</text>
+<text x="778" y="169.0" font-family="'DejaVu Sans Mono', 'Liberation Mono', Consolas, monospace" font-size="9.5" fill="#0f172a">+ call(env) : RackResponse</text>
+<text x="778" y="183.5" font-family="'DejaVu Sans Mono', 'Liberation Mono', Consolas, monospace" font-size="9.5" fill="#0f172a">- route(method, path, env) : RackResponse</text>
+<text x="778" y="198.0" font-family="'DejaVu Sans Mono', 'Liberation Mono', Consolas, monospace" font-size="9.5" fill="#0f172a">- parse_json_body(env) : Hash</text>
+<text x="778" y="212.5" font-family="'DejaVu Sans Mono', 'Liberation Mono', Consolas, monospace" font-size="9.5" fill="#0f172a">- json_response(status, payload) : RackResponse</text>
+<rect x="772" y="342" width="335" height="292.5" rx="5" fill="#cbd5e1" opacity="0.45"/>
+<rect x="770" y="340" width="335" height="292.5" rx="5" fill="#ffffff" stroke="#1e40af" stroke-width="1.5"/>
+<path d="M 770 345 Q 770 340 775 340 L 1100 340 Q 1105 340 1105 345 L 1105 366 L 770 366 Z" fill="#1d4ed8"/>
+<text x="937.5" y="357" text-anchor="middle" font-family="'DejaVu Sans', 'Liberation Sans', 'Noto Sans', Arial, sans-serif" font-size="11.5" font-weight="700" fill="#ffffff">Isotope::SceneManager</text>
+<text x="778" y="379.0" font-family="'DejaVu Sans Mono', 'Liberation Mono', Consolas, monospace" font-size="9.5" fill="#1e293b">+ DEFAULT_TIME_STEP : Float</text>
+<text x="778" y="393.5" font-family="'DejaVu Sans Mono', 'Liberation Mono', Consolas, monospace" font-size="9.5" fill="#1e293b">- scenes : Hash&lt;id, Rubidium::Scene2D&gt;</text>
+<text x="778" y="408.0" font-family="'DejaVu Sans Mono', 'Liberation Mono', Consolas, monospace" font-size="9.5" fill="#1e293b">- next_id : Integer</text>
+<text x="778" y="422.5" font-family="'DejaVu Sans Mono', 'Liberation Mono', Consolas, monospace" font-size="9.5" fill="#1e293b">- mutex : Mutex</text>
+<line x1="770" y1="434.0" x2="1105" y2="434.0" stroke="#1e40af" stroke-width="1"/>
+<text x="778" y="447.0" font-family="'DejaVu Sans Mono', 'Liberation Mono', Consolas, monospace" font-size="9.5" fill="#0f172a">+ normalize_id(id) : Integer | String</text>
+<text x="778" y="461.5" font-family="'DejaVu Sans Mono', 'Liberation Mono', Consolas, monospace" font-size="9.5" fill="#0f172a">+ create_scene(id: nil, scene_data: nil)</text>
+<text x="778" y="476.0" font-family="'DejaVu Sans Mono', 'Liberation Mono', Consolas, monospace" font-size="9.5" fill="#0f172a">+ get_scene(scene_id) : Rubidium::Scene2D</text>
+<text x="778" y="490.5" font-family="'DejaVu Sans Mono', 'Liberation Mono', Consolas, monospace" font-size="9.5" fill="#0f172a">+ delete_scene(scene_id) : Rubidium::Scene2D</text>
+<text x="778" y="505.0" font-family="'DejaVu Sans Mono', 'Liberation Mono', Consolas, monospace" font-size="9.5" fill="#0f172a">+ list_scenes() : Hash&lt;String, Hash&gt;</text>
+<text x="778" y="519.5" font-family="'DejaVu Sans Mono', 'Liberation Mono', Consolas, monospace" font-size="9.5" fill="#0f172a">+ create_rigidbody(scene_id, body_data)</text>
+<text x="778" y="534.0" font-family="'DejaVu Sans Mono', 'Liberation Mono', Consolas, monospace" font-size="9.5" fill="#0f172a">+ get_rigidbody(scene_id, body_id)</text>
+<text x="778" y="548.5" font-family="'DejaVu Sans Mono', 'Liberation Mono', Consolas, monospace" font-size="9.5" fill="#0f172a">+ remove_rigidbody(scene_id, body_id)</text>
+<text x="778" y="563.0" font-family="'DejaVu Sans Mono', 'Liberation Mono', Consolas, monospace" font-size="9.5" fill="#0f172a">+ add_linear_force(scene_id, body_id, force)</text>
+<text x="778" y="577.5" font-family="'DejaVu Sans Mono', 'Liberation Mono', Consolas, monospace" font-size="9.5" fill="#0f172a">+ update_scene(scene_id, time_step)</text>
+<text x="778" y="592.0" font-family="'DejaVu Sans Mono', 'Liberation Mono', Consolas, monospace" font-size="9.5" fill="#0f172a">+ update_all(time_step) : Hash</text>
+<text x="778" y="606.5" font-family="'DejaVu Sans Mono', 'Liberation Mono', Consolas, monospace" font-size="9.5" fill="#0f172a">+ save_scene(scene_id, file_path)</text>
+<text x="778" y="621.0" font-family="'DejaVu Sans Mono', 'Liberation Mono', Consolas, monospace" font-size="9.5" fill="#0f172a">+ load_scene(scene_id, file_path)</text>
+<rect x="1177" y="257" width="270" height="120.5" rx="5" fill="#cbd5e1" opacity="0.45"/>
+<rect x="1175" y="255" width="270" height="120.5" rx="5" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.5"/>
+<path d="M 1175 260 Q 1175 255 1180 255 L 1440 255 Q 1445 255 1445 260 L 1445 293 L 1175 293 Z" fill="#2563eb"/>
+<text x="1310.0" y="268" text-anchor="middle" font-family="'DejaVu Sans', 'Liberation Sans', 'Noto Sans', Arial, sans-serif" font-size="9.5" fill="#ffffff" opacity="0.9">«module»</text>
+<text x="1310.0" y="284" text-anchor="middle" font-family="'DejaVu Sans', 'Liberation Sans', 'Noto Sans', Arial, sans-serif" font-size="11.5" font-weight="700" fill="#ffffff">Isotope::Serializer</text>
+<text x="1183" y="306.0" font-family="'DejaVu Sans Mono', 'Liberation Mono', Consolas, monospace" font-size="9.5" fill="#0f172a">+ serialize_scene(scene)$ : Hash</text>
+<text x="1183" y="320.5" font-family="'DejaVu Sans Mono', 'Liberation Mono', Consolas, monospace" font-size="9.5" fill="#0f172a">+ serialize_rigidbody(body, id:)$</text>
+<text x="1183" y="335.0" font-family="'DejaVu Sans Mono', 'Liberation Mono', Consolas, monospace" font-size="9.5" fill="#0f172a">+ build_scene(data)$ : Scene2D</text>
+<text x="1183" y="349.5" font-family="'DejaVu Sans Mono', 'Liberation Mono', Consolas, monospace" font-size="9.5" fill="#0f172a">+ build_rigidbody(data)$ : RigidBody2d</text>
+<text x="1183" y="364.0" font-family="'DejaVu Sans Mono', 'Liberation Mono', Consolas, monospace" font-size="9.5" fill="#0f172a">+ build_vector2(data)$ : Vector2</text>
+<rect x="1177" y="457" width="270" height="62.5" rx="5" fill="#cbd5e1" opacity="0.45"/>
+<rect x="1175" y="455" width="270" height="62.5" rx="5" fill="#ffffff" stroke="#991b1b" stroke-width="1.5"/>
+<path d="M 1175 460 Q 1175 455 1180 455 L 1440 455 Q 1445 455 1445 460 L 1445 493 L 1175 493 Z" fill="#b91c1c"/>
+<text x="1310.0" y="468" text-anchor="middle" font-family="'DejaVu Sans', 'Liberation Sans', 'Noto Sans', Arial, sans-serif" font-size="9.5" fill="#ffffff" opacity="0.9">«exception &lt; KeyError»</text>
+<text x="1310.0" y="484" text-anchor="middle" font-family="'DejaVu Sans', 'Liberation Sans', 'Noto Sans', Arial, sans-serif" font-size="11.5" font-weight="700" fill="#ffffff">SceneNotFoundError | RigidBodyNotFound</text>
+<text x="1183" y="506.0" font-family="'DejaVu Sans Mono', 'Liberation Mono', Consolas, monospace" font-size="9.5" fill="#1e293b">+ message : String</text>
+<rect x="42" y="697" width="290" height="162.0" rx="5" fill="#cbd5e1" opacity="0.45"/>
+<rect x="40" y="695" width="290" height="162.0" rx="5" fill="#ffffff" stroke="#115e59" stroke-width="1.5"/>
+<path d="M 40 700 Q 40 695 45 695 L 325 695 Q 330 695 330 700 L 330 721 L 40 721 Z" fill="#0f766e"/>
+<text x="185.0" y="712" text-anchor="middle" font-family="'DejaVu Sans', 'Liberation Sans', 'Noto Sans', Arial, sans-serif" font-size="11.5" font-weight="700" fill="#ffffff">Rubidium::Scene2D</text>
+<text x="48" y="734.0" font-family="'DejaVu Sans Mono', 'Liberation Mono', Consolas, monospace" font-size="9.5" fill="#1e293b">+ rigid_bodies : Hash&lt;Integer, RigidBody2d&gt;</text>
+<text x="48" y="748.5" font-family="'DejaVu Sans Mono', 'Liberation Mono', Consolas, monospace" font-size="9.5" fill="#1e293b">- next_id : Integer</text>
+<line x1="40" y1="760.0" x2="330" y2="760.0" stroke="#115e59" stroke-width="1"/>
+<text x="48" y="773.0" font-family="'DejaVu Sans Mono', 'Liberation Mono', Consolas, monospace" font-size="9.5" fill="#0f172a">+ self.load(file_path)$ : Scene2D</text>
+<text x="48" y="787.5" font-family="'DejaVu Sans Mono', 'Liberation Mono', Consolas, monospace" font-size="9.5" fill="#0f172a">+ create_rigidbody(rigid_body) : Integer</text>
+<text x="48" y="802.0" font-family="'DejaVu Sans Mono', 'Liberation Mono', Consolas, monospace" font-size="9.5" fill="#0f172a">+ get_rigidbody(id) : RigidBody2d</text>
+<text x="48" y="816.5" font-family="'DejaVu Sans Mono', 'Liberation Mono', Consolas, monospace" font-size="9.5" fill="#0f172a">+ load(file_path) : Scene2D</text>
+<text x="48" y="831.0" font-family="'DejaVu Sans Mono', 'Liberation Mono', Consolas, monospace" font-size="9.5" fill="#0f172a">+ save(file_path) : void</text>
+<text x="48" y="845.5" font-family="'DejaVu Sans Mono', 'Liberation Mono', Consolas, monospace" font-size="9.5" fill="#0f172a">+ update(time_step) : void</text>
+<rect x="402" y="697" width="305" height="205.5" rx="5" fill="#cbd5e1" opacity="0.45"/>
+<rect x="400" y="695" width="305" height="205.5" rx="5" fill="#ffffff" stroke="#115e59" stroke-width="1.5"/>
+<path d="M 400 700 Q 400 695 405 695 L 700 695 Q 705 695 705 700 L 705 721 L 400 721 Z" fill="#0f766e"/>
+<text x="552.5" y="712" text-anchor="middle" font-family="'DejaVu Sans', 'Liberation Sans', 'Noto Sans', Arial, sans-serif" font-size="11.5" font-weight="700" fill="#ffffff">Rubidium::RigidBody2d</text>
+<text x="408" y="734.0" font-family="'DejaVu Sans Mono', 'Liberation Mono', Consolas, monospace" font-size="9.5" fill="#1e293b">+ mass : Float</text>
+<text x="408" y="748.5" font-family="'DejaVu Sans Mono', 'Liberation Mono', Consolas, monospace" font-size="9.5" fill="#1e293b">+ position : Vector2</text>
+<text x="408" y="763.0" font-family="'DejaVu Sans Mono', 'Liberation Mono', Consolas, monospace" font-size="9.5" fill="#1e293b">+ velocity : Vector2</text>
+<text x="408" y="777.5" font-family="'DejaVu Sans Mono', 'Liberation Mono', Consolas, monospace" font-size="9.5" fill="#1e293b">+ acceleration : Vector2</text>
+<text x="408" y="792.0" font-family="'DejaVu Sans Mono', 'Liberation Mono', Consolas, monospace" font-size="9.5" fill="#1e293b">+ rotation, angular_velocity : Float</text>
+<text x="408" y="806.5" font-family="'DejaVu Sans Mono', 'Liberation Mono', Consolas, monospace" font-size="9.5" fill="#1e293b">+ drag : Float</text>
+<text x="408" y="821.0" font-family="'DejaVu Sans Mono', 'Liberation Mono', Consolas, monospace" font-size="9.5" fill="#1e293b">+ static : Boolean</text>
+<text x="408" y="835.5" font-family="'DejaVu Sans Mono', 'Liberation Mono', Consolas, monospace" font-size="9.5" fill="#1e293b">+ collider : Collider?</text>
+<line x1="400" y1="847.0" x2="705" y2="847.0" stroke="#115e59" stroke-width="1"/>
+<text x="408" y="860.0" font-family="'DejaVu Sans Mono', 'Liberation Mono', Consolas, monospace" font-size="9.5" fill="#0f172a">+ update(time_step) : void</text>
+<text x="408" y="874.5" font-family="'DejaVu Sans Mono', 'Liberation Mono', Consolas, monospace" font-size="9.5" fill="#0f172a">+ add_linear_force(force) : void</text>
+<text x="408" y="889.0" font-family="'DejaVu Sans Mono', 'Liberation Mono', Consolas, monospace" font-size="9.5" fill="#0f172a">+ narrow_collision_check(other) : Boolean</text>
+<rect x="787" y="697" width="245" height="118.5" rx="5" fill="#cbd5e1" opacity="0.45"/>
+<rect x="785" y="695" width="245" height="118.5" rx="5" fill="#ffffff" stroke="#115e59" stroke-width="1.5"/>
+<path d="M 785 700 Q 785 695 790 695 L 1025 695 Q 1030 695 1030 700 L 1030 721 L 785 721 Z" fill="#0f766e"/>
+<text x="907.5" y="712" text-anchor="middle" font-family="'DejaVu Sans', 'Liberation Sans', 'Noto Sans', Arial, sans-serif" font-size="11.5" font-weight="700" fill="#ffffff">Rubidium::Vector2</text>
+<text x="793" y="734.0" font-family="'DejaVu Sans Mono', 'Liberation Mono', Consolas, monospace" font-size="9.5" fill="#1e293b">+ x : Numeric</text>
+<text x="793" y="748.5" font-family="'DejaVu Sans Mono', 'Liberation Mono', Consolas, monospace" font-size="9.5" fill="#1e293b">+ y : Numeric</text>
+<line x1="785" y1="760.0" x2="1030" y2="760.0" stroke="#115e59" stroke-width="1"/>
+<text x="793" y="773.0" font-family="'DejaVu Sans Mono', 'Liberation Mono', Consolas, monospace" font-size="9.5" fill="#0f172a">+ +(other), -(other), *(other)</text>
+<text x="793" y="787.5" font-family="'DejaVu Sans Mono', 'Liberation Mono', Consolas, monospace" font-size="9.5" fill="#0f172a">+ add(other), subtract(other)</text>
+<text x="793" y="802.0" font-family="'DejaVu Sans Mono', 'Liberation Mono', Consolas, monospace" font-size="9.5" fill="#0f172a">+ multiply_with_scalar(s)</text>
+<rect x="787" y="867" width="245" height="48" rx="5" fill="#cbd5e1" opacity="0.45"/>
+<rect x="785" y="865" width="245" height="48" rx="5" fill="#ffffff" stroke="#0f766e" stroke-width="1.5"/>
+<path d="M 785 870 Q 785 865 790 865 L 1025 865 Q 1030 865 1030 870 L 1030 903 L 785 903 Z" fill="#0d9488"/>
+<text x="907.5" y="878" text-anchor="middle" font-family="'DejaVu Sans', 'Liberation Sans', 'Noto Sans', Arial, sans-serif" font-size="9.5" fill="#ffffff" opacity="0.9">«abstract»</text>
+<text x="907.5" y="894" text-anchor="middle" font-family="'DejaVu Sans', 'Liberation Sans', 'Noto Sans', Arial, sans-serif" font-size="11.5" font-weight="700" fill="#ffffff">Rubidium::Collision::Collider</text>
+<rect x="682" y="967" width="195" height="50.5" rx="5" fill="#cbd5e1" opacity="0.45"/>
+<rect x="680" y="965" width="195" height="50.5" rx="5" fill="#ffffff" stroke="#0f766e" stroke-width="1.5"/>
+<path d="M 680 970 Q 680 965 685 965 L 870 965 Q 875 965 875 970 L 875 991 L 680 991 Z" fill="#14b8a6"/>
+<text x="777.5" y="982" text-anchor="middle" font-family="'DejaVu Sans', 'Liberation Sans', 'Noto Sans', Arial, sans-serif" font-size="11.5" font-weight="700" fill="#ffffff">CircleCollider</text>
+<text x="688" y="1004.0" font-family="'DejaVu Sans Mono', 'Liberation Mono', Consolas, monospace" font-size="9.5" fill="#1e293b">+ radius : Numeric</text>
+<rect x="912" y="967" width="200" height="50.5" rx="5" fill="#cbd5e1" opacity="0.45"/>
+<rect x="910" y="965" width="200" height="50.5" rx="5" fill="#ffffff" stroke="#0f766e" stroke-width="1.5"/>
+<path d="M 910 970 Q 910 965 915 965 L 1105 965 Q 1110 965 1110 970 L 1110 991 L 910 991 Z" fill="#14b8a6"/>
+<text x="1010.0" y="982" text-anchor="middle" font-family="'DejaVu Sans', 'Liberation Sans', 'Noto Sans', Arial, sans-serif" font-size="11.5" font-weight="700" fill="#ffffff">RectangleCollider</text>
+<text x="918" y="1004.0" font-family="'DejaVu Sans Mono', 'Liberation Mono', Consolas, monospace" font-size="9.5" fill="#1e293b">+ width, height : Numeric</text>
+<rect x="1177" y="697" width="270" height="106.0" rx="5" fill="#cbd5e1" opacity="0.45"/>
+<rect x="1175" y="695" width="270" height="106.0" rx="5" fill="#ffffff" stroke="#115e59" stroke-width="1.5"/>
+<path d="M 1175 700 Q 1175 695 1180 695 L 1440 695 Q 1445 695 1445 700 L 1445 733 L 1175 733 Z" fill="#0f766e"/>
+<text x="1310.0" y="708" text-anchor="middle" font-family="'DejaVu Sans', 'Liberation Sans', 'Noto Sans', Arial, sans-serif" font-size="9.5" fill="#ffffff" opacity="0.9">«Oj JSON persistence»</text>
+<text x="1310.0" y="724" text-anchor="middle" font-family="'DejaVu Sans', 'Liberation Sans', 'Noto Sans', Arial, sans-serif" font-size="11.5" font-weight="700" fill="#ffffff">Rubidium::SceneSaver / SceneLoader</text>
+<text x="1183" y="746.0" font-family="'DejaVu Sans Mono', 'Liberation Mono', Consolas, monospace" font-size="9.5" fill="#0f172a">+ SceneSaver.save(scene, path)$</text>
+<text x="1183" y="760.5" font-family="'DejaVu Sans Mono', 'Liberation Mono', Consolas, monospace" font-size="9.5" fill="#0f172a">+ SceneSaver.to_json(scene)$ : String</text>
+<text x="1183" y="775.0" font-family="'DejaVu Sans Mono', 'Liberation Mono', Consolas, monospace" font-size="9.5" fill="#0f172a">+ SceneLoader.load(path)$ : Scene2D</text>
+<text x="1183" y="789.5" font-family="'DejaVu Sans Mono', 'Liberation Mono', Consolas, monospace" font-size="9.5" fill="#0f172a">+ SceneLoader.from_json(json)$</text>
+<rect x="40" y="465" width="255" height="145" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.3"/>
+<text x="55" y="486" font-family="'DejaVu Sans', 'Liberation Sans', 'Noto Sans', Arial, sans-serif" font-size="11" font-weight="700" fill="#0f172a">UML Legend</text>
+<line x1="57" y1="505" x2="107" y2="505" stroke="#334155" stroke-width="1.5" marker-start="url(#uml-comp)"/>
+<text x="119" y="508" font-family="'DejaVu Sans', 'Liberation Sans', 'Noto Sans', Arial, sans-serif" font-size="9.5" fill="#334155">Composition (owns lifecycle)</text>
+<line x1="57" y1="525" x2="107" y2="525" stroke="#334155" stroke-width="1.5" marker-start="url(#uml-aggr)"/>
+<text x="119" y="528" font-family="'DejaVu Sans', 'Liberation Sans', 'Noto Sans', Arial, sans-serif" font-size="9.5" fill="#334155">Aggregation (holds reference)</text>
+<line x1="57" y1="545" x2="107" y2="545" stroke="#334155" stroke-width="1.5" marker-end="url(#arrow-solid)"/>
+<text x="119" y="548" font-family="'DejaVu Sans', 'Liberation Sans', 'Noto Sans', Arial, sans-serif" font-size="9.5" fill="#334155">Association / Dispatch</text>
+<line x1="57" y1="565" x2="107" y2="565" stroke="#334155" stroke-width="1.5" stroke-dasharray="5,4" marker-end="url(#arrow-solid)"/>
+<text x="119" y="568" font-family="'DejaVu Sans', 'Liberation Sans', 'Noto Sans', Arial, sans-serif" font-size="9.5" fill="#334155">Dependency («uses» / «raises»)</text>
+<line x1="57" y1="585" x2="107" y2="585" stroke="#334155" stroke-width="1.5" marker-end="url(#uml-inherit)"/>
+<text x="119" y="588" font-family="'DejaVu Sans', 'Liberation Sans', 'Noto Sans', Arial, sans-serif" font-size="9.5" fill="#334155">Inheritance (subclasses)</text>
+</svg>

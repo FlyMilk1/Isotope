@@ -4,7 +4,7 @@ source 'https://rubygems.org'
 
 gem 'agoo'
 gem 'oj'
-gem 'rubidium_physics', path: '../rubidium'
+gem 'rubidium_physics', path: '../Rubidium'
 
 group :development, :test do
   gem 'rspec'
