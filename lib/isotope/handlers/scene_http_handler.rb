@@ -50,7 +50,9 @@ module Isotope
           when 'POST'
             payload = parse_json_body(env)
             scene_data = payload['scene'] || (payload['rigid_bodies'] ? { 'rigid_bodies' => payload['rigid_bodies'] } : nil)
-            scene_id, scene = @scene_manager.create_scene(id: payload['scene_id'] || payload['id'], scene_data: scene_data)
+            kwargs = { id: payload['scene_id'] || payload['id'], scene_data: scene_data }
+            kwargs[:cell_size] = payload['cell_size'] if payload.key?('cell_size')
+            scene_id, scene = @scene_manager.create_scene(**kwargs)
             return json_response(
               201,
               {
@@ -88,6 +90,14 @@ module Isotope
           serialized = Serializer.serialize_scene(scene)
           @ws_handler&.broadcast(scene_id, { 'event' => 'scene_updated', 'scene_id' => scene_id, 'scene' => serialized })
           json_response(200, { 'status' => 'ok', 'scene_id' => scene_id, 'scene' => serialized })
+        in ['POST', 3, 'cell_size', nil]
+          payload = parse_json_body(env)
+          raise ArgumentError, 'Missing required parameter: cell_size' unless payload.key?('cell_size')
+
+          scene = @scene_manager.set_cell_size(scene_id, payload['cell_size'])
+          serialized = Serializer.serialize_scene(scene)
+          @ws_handler&.broadcast(scene_id, { 'event' => 'scene_updated', 'scene_id' => scene_id, 'scene' => serialized })
+          json_response(200, { 'status' => 'ok', 'scene_id' => scene_id, 'cell_size' => scene.cell_size, 'scene' => serialized })
         in ['POST', 3, 'save', nil]
           payload = parse_json_body(env)
           file_path = payload['file_path'] || payload['path']

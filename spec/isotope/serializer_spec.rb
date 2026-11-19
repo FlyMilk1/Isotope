@@ -44,6 +44,7 @@ RSpec.describe Isotope::Serializer do
       ground = scene.get_rigidbody(1)
       expect(ground.mass).to eq(Float::INFINITY)
       expect(ground.static).to be(true)
+      expect(ground.bounciness).to eq(0.0)
       expect(ground.collider).to be_a(Rubidium::Collision::RectangleCollider)
       expect(ground.collider.width).to eq(20)
       expect(ground.collider.height).to eq(2)
@@ -79,6 +80,48 @@ RSpec.describe Isotope::Serializer do
       body = scene.get_rigidbody(1)
       expect(body.position).to eq(Rubidium::Vector2.new(2.0, 3.0))
     end
+
+    it 'preserves bounciness on build_scene and serialize_scene and clamps out-of-range values' do
+      scene_payload = {
+        'rigid_bodies' => {
+          '1' => { 'position' => { 'x' => 0, 'y' => 0 }, 'bounciness' => 0.85 },
+          '2' => { 'position' => { 'x' => 1, 'y' => 0 }, 'bounciness' => 1.5 },
+          '3' => { 'position' => { 'x' => 2, 'y' => 0 }, 'bounciness' => -0.5 }
+        }
+      }
+
+      scene = described_class.build_scene(scene_payload)
+      expect(scene.get_rigidbody(1).bounciness).to eq(0.85)
+      expect(scene.get_rigidbody(2).bounciness).to eq(1.0)
+      expect(scene.get_rigidbody(3).bounciness).to eq(0.0)
+
+      serialized = described_class.serialize_scene(scene)
+      expect(serialized['rigid_bodies']['1']['bounciness']).to eq(0.85)
+      expect(serialized['rigid_bodies']['2']['bounciness']).to eq(1.0)
+      expect(serialized['rigid_bodies']['3']['bounciness']).to eq(0.0)
+    end
+
+    it 'preserves cell_size, computes effective_cell_size, and validates invalid cell_size' do
+      auto_scene = described_class.build_scene({
+        'rigid_bodies' => {
+          '1' => { 'position' => { 'x' => 0, 'y' => 0 }, 'collider' => { 'type' => 'CircleCollider', 'radius' => 1.5 } }
+        }
+      })
+      expect(auto_scene.cell_size).to be_nil
+      auto_serialized = described_class.serialize_scene(auto_scene)
+      expect(auto_serialized['cell_size']).to be_nil
+      expect(auto_serialized['effective_cell_size']).to eq(3.0)
+
+      manual_scene = described_class.build_scene({ 'cell_size' => 2.5, 'rigid_bodies' => {} })
+      expect(manual_scene.cell_size).to eq(2.5)
+      manual_serialized = described_class.serialize_scene(manual_scene)
+      expect(manual_serialized['cell_size']).to eq(2.5)
+      expect(manual_serialized['effective_cell_size']).to eq(2.5)
+
+      expect { described_class.build_scene({ 'cell_size' => 0 }) }.to raise_error(ArgumentError)
+      expect { described_class.build_scene({ 'cell_size' => -2 }) }.to raise_error(ArgumentError)
+      expect { described_class.build_scene({ 'cell_size' => 'wide' }) }.to raise_error(ArgumentError)
+    end
   end
 
   describe '.build_rigidbody and .serialize_rigidbody' do
@@ -86,14 +129,28 @@ RSpec.describe Isotope::Serializer do
       body = described_class.build_rigidbody({ position: { x: 4, y: 5 }, collider: { type: 'CircleCollider', radius: 1.5 } })
       expect(body).to be_a(Rubidium::RigidBody2d)
       expect(body.mass).to eq(1.0)
+      expect(body.bounciness).to eq(0.0)
       expect(body.position).to eq(Rubidium::Vector2.new(4, 5))
       expect(body.collider).to be_a(Rubidium::Collision::CircleCollider)
       expect(body.collider.radius).to eq(1.5)
 
       serialized = described_class.serialize_rigidbody(body, id: 7)
       expect(serialized['id']).to eq(7)
+      expect(serialized['bounciness']).to eq(0.0)
       expect(serialized['position']).to eq('x' => 4, 'y' => 5)
       expect(serialized['collider']).to eq('type' => 'CircleCollider', 'radius' => 1.5)
+    end
+
+    it 'preserves bounciness on build_rigidbody and serialize_rigidbody and clamps out-of-range values' do
+      bouncy = described_class.build_rigidbody(position: [0, 0], bounciness: 0.85)
+      expect(bouncy.bounciness).to eq(0.85)
+      expect(described_class.serialize_rigidbody(bouncy)['bounciness']).to eq(0.85)
+
+      clamped_high = described_class.build_rigidbody(position: [0, 0], bounciness: 1.5)
+      expect(clamped_high.bounciness).to eq(1.0)
+
+      clamped_low = described_class.build_rigidbody(position: [0, 0], bounciness: -0.5)
+      expect(clamped_low.bounciness).to eq(0.0)
     end
   end
 

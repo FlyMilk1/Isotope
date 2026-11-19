@@ -128,5 +128,19 @@ RSpec.describe Isotope::SceneManager do
       expect { manager.save_scene(scene_id, '') }.to raise_error(ArgumentError)
       expect { manager.load_scene(scene_id, nil) }.to raise_error(ArgumentError)
     end
+
+    it 'creates scenes with cell_size and updates it via #set_cell_size' do
+      scene_id, scene = manager.create_scene(id: 'grid_world', cell_size: 4.0)
+      expect(scene.cell_size).to eq(4.0)
+
+      manager.set_cell_size(scene_id, 1.5)
+      expect(manager.get_scene(scene_id).cell_size).to eq(1.5)
+
+      manager.set_cell_size(scene_id, nil)
+      expect(manager.get_scene(scene_id).cell_size).to be_nil
+
+      expect { manager.set_cell_size(scene_id, 0) }.to raise_error(ArgumentError)
+      expect { manager.set_cell_size(scene_id, -1) }.to raise_error(ArgumentError)
+    end
   end
 end

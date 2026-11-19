@@ -117,6 +117,8 @@ module Isotope
           handle_add_linear_force(msg)
         when 'update', 'update_scene', 'step'
           handle_update_scene(client, action, msg)
+        when 'set_cell_size'
+          handle_set_cell_size(client, msg)
         when 'update_all'
           handle_update_all(client, msg)
         when 'save', 'save_scene'
@@ -148,7 +150,9 @@ module Isotope
 
       def handle_create_scene(client, msg)
         scene_data = msg['scene'] || (msg['rigid_bodies'] ? { 'rigid_bodies' => msg['rigid_bodies'] } : nil)
-        scene_id, scene = @scene_manager.create_scene(id: msg['scene_id'] || msg['id'], scene_data: scene_data)
+        kwargs = { id: msg['scene_id'] || msg['id'], scene_data: scene_data }
+        kwargs[:cell_size] = msg['cell_size'] if msg.key?('cell_size')
+        scene_id, scene = @scene_manager.create_scene(**kwargs)
         subscribe_client(client, scene_id) unless msg['subscribe'] == false
         {
           'status' => 'ok',
@@ -254,6 +258,32 @@ module Isotope
           'status' => 'ok',
           'action' => action,
           'scene_id' => norm_scene_id,
+          'scene' => serialized_scene
+        }
+      end
+
+      def handle_set_cell_size(client, msg)
+        norm_scene_id = @scene_manager.normalize_id(require_param(msg, 'scene_id', 'id'))
+        raise ArgumentError, 'Missing required parameter: cell_size' unless msg.key?('cell_size')
+
+        scene = @scene_manager.set_cell_size(norm_scene_id, msg['cell_size'])
+        serialized_scene = Serializer.serialize_scene(scene)
+
+        broadcast(
+          norm_scene_id,
+          {
+            'event' => 'scene_updated',
+            'scene_id' => norm_scene_id,
+            'scene' => serialized_scene
+          },
+          exclude: client
+        )
+
+        {
+          'status' => 'ok',
+          'action' => 'set_cell_size',
+          'scene_id' => norm_scene_id,
+          'cell_size' => scene.cell_size,
           'scene' => serialized_scene
         }
       end

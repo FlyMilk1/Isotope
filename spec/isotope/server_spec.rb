@@ -395,6 +395,96 @@ RSpec.describe Isotope::Server do
     ensure
       ws&.close
     end
+
+    it 'preserves bounciness and resolves elastic bounces against static walls' do
+      ws = open_ws
+
+      created = ws.request({
+        'action' => 'create_scene',
+        'scene_id' => 'bounce_arena',
+        'scene' => {
+          'rigid_bodies' => {
+            '1' => {
+              'mass' => 'Infinity',
+              'static' => true,
+              'bounciness' => 0.0,
+              'position' => { 'x' => 5.0, 'y' => 0.0 },
+              'rotation' => 0.0,
+              'collider' => { 'type' => 'RectangleCollider', 'width' => 2.0, 'height' => 10.0 }
+            },
+            '2' => {
+              'mass' => 1.0,
+              'bounciness' => 1.0,
+              'position' => { 'x' => 3.0, 'y' => 0.0 },
+              'velocity' => { 'x' => 4.0, 'y' => 0.0 },
+              'rotation' => 0.0,
+              'collider' => { 'type' => 'CircleCollider', 'radius' => 0.5 }
+            }
+          }
+        }
+      })
+      expect(created['status']).to eq('ok')
+      expect(created['scene']['rigid_bodies']['2']['bounciness']).to eq(1.0)
+
+      last_step = nil
+      5.times do
+        last_step = ws.request({
+          'action' => 'update',
+          'scene_id' => 'bounce_arena',
+          'time_step' => 0.1
+        })
+        expect(last_step['status']).to eq('ok')
+      end
+
+      circle = last_step['scene']['rigid_bodies']['2']
+      expect(circle['bounciness']).to eq(1.0)
+      expect(circle['velocity']['x']).to be_within(1e-9).of(-4.0)
+      expect(circle['position']['x']).to be <= 3.5
+    ensure
+      ws&.close
+    end
+
+    it 'supports configuring broad-phase grid cell_size via create_scene and set_cell_size' do
+      ws = open_ws
+
+      created = ws.request({
+        'action' => 'create_scene',
+        'scene_id' => 'grid_ws',
+        'cell_size' => 3.5
+      })
+      expect(created['status']).to eq('ok')
+      expect(created['scene']['cell_size']).to eq(3.5)
+      expect(created['scene']['effective_cell_size']).to eq(3.5)
+
+      updated = ws.request({
+        'action' => 'set_cell_size',
+        'scene_id' => 'grid_ws',
+        'cell_size' => 1.25
+      })
+      expect(updated['status']).to eq('ok')
+      expect(updated['cell_size']).to eq(1.25)
+      expect(updated['scene']['cell_size']).to eq(1.25)
+      expect(updated['scene']['effective_cell_size']).to eq(1.25)
+
+      auto_reset = ws.request({
+        'action' => 'set_cell_size',
+        'scene_id' => 'grid_ws',
+        'cell_size' => nil
+      })
+      expect(auto_reset['status']).to eq('ok')
+      expect(auto_reset['cell_size']).to be_nil
+      expect(auto_reset['scene']['cell_size']).to be_nil
+      expect(auto_reset['scene']['effective_cell_size']).to eq(1.0)
+
+      bad = ws.request({
+        'action' => 'set_cell_size',
+        'scene_id' => 'grid_ws',
+        'cell_size' => -2.0
+      })
+      expect(bad['status']).to eq('error')
+    ensure
+      ws&.close
+    end
   end
 
   describe 'HTTP REST API' do
@@ -403,9 +493,15 @@ RSpec.describe Isotope::Server do
       expect(code).to eq(200)
       expect(health).to eq('status' => 'ok')
 
-      code, created = http_request(:post, '/scenes', { 'scene_id' => 'http_scene' })
+      code, created = http_request(:post, '/scenes', { 'scene_id' => 'http_scene', 'cell_size' => 2.0 })
       expect(code).to eq(201)
       expect(created['scene_id']).to eq('http_scene')
+      expect(created['scene']['cell_size']).to eq(2.0)
+
+      code, grid_res = http_request(:post, '/scenes/http_scene/cell_size', { 'cell_size' => 4.5 })
+      expect(code).to eq(200)
+      expect(grid_res['cell_size']).to eq(4.5)
+      expect(grid_res['scene']['cell_size']).to eq(4.5)
 
       code, list = http_request(:get, '/scenes')
       expect(code).to eq(200)

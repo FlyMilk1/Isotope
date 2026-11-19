@@ -10,7 +10,10 @@ module Isotope
 
     # Serializes a Rubidium::Scene2D into a JSON-compatible Ruby Hash.
     def serialize_scene(scene)
-      Oj.load(Rubidium::SceneSaver.to_json(scene), mode: :strict)
+      data = Oj.load(Rubidium::SceneSaver.to_json(scene), mode: :strict)
+      data['cell_size'] = serialize_number_input(scene.cell_size)
+      data['effective_cell_size'] = serialize_number_input(effective_cell_size(scene))
+      data
     end
 
     # Serializes a single Rubidium::RigidBody2d into a JSON-compatible Hash.
@@ -30,9 +33,51 @@ module Isotope
       raise ArgumentError, "Expected scene data to be a Hash or JSON object" unless parsed.is_a?(Hash)
       return Rubidium::Scene2D.new if parsed.empty?
 
-      normalized = normalize_scene_hash(parsed)
+      hash = stringify_keys(parsed)
+      cell_size = hash.key?('cell_size') ? parse_cell_size(hash['cell_size']) : nil
+
+      normalized = normalize_scene_hash(hash)
       json = Oj.dump(normalized, mode: :strict)
-      Rubidium::SceneLoader.from_json(json)
+      scene = Rubidium::SceneLoader.from_json(json)
+      scene.cell_size = cell_size
+      scene
+    end
+
+    # Validates and normalizes a broad-phase grid cell_size (nil for auto, or a positive finite Float).
+    def parse_cell_size(value)
+      return nil if value.nil?
+
+      raise ArgumentError, "cell_size must be nil or a positive number, got #{value.inspect}" unless value.is_a?(Numeric)
+
+      size = value.to_f
+      raise ArgumentError, "cell_size must be finite and positive, got #{value.inspect}" unless size.finite? && size.positive?
+
+      size
+    end
+
+    # Returns the effective broad-phase spatial hashmap cell size for +scene+.
+    def effective_cell_size(scene)
+      return scene.cell_size if scene.cell_size
+
+      extents = []
+      scene.rigid_bodies.each_value do |body|
+        col = body.collider
+        next unless col
+
+        if col.respond_to?(:radius)
+          r = col.radius.to_f
+          extents << 2.0 * r if r > 0.0
+        elsif col.respond_to?(:width) && col.respond_to?(:height)
+          ext = [col.width.to_f, col.height.to_f].max
+          extents << ext if ext > 0.0
+        end
+      end
+
+      return 1.0 if extents.empty?
+
+      avg_extent = extents.sum / extents.size
+      max_extent = extents.max
+      [avg_extent, max_extent / 16.0].max
     end
 
     # Builds a Rubidium::RigidBody2d from a RigidBody2d, a JSON string, or a Hash.
@@ -106,7 +151,8 @@ module Isotope
         'position' => normalize_vector_hash(hash['position'] || { 'x' => 0.0, 'y' => 0.0 }),
         'rotation' => serialize_number_input(hash.key?('rotation') ? hash['rotation'] : 0.0),
         'drag' => serialize_number_input(hash.key?('drag') ? hash['drag'] : 0.0),
-        'static' => hash['static'] ? true : false
+        'static' => hash['static'] ? true : false,
+        'bounciness' => serialize_number_input(hash.key?('bounciness') && !hash['bounciness'].nil? ? hash['bounciness'] : 0.0)
       }
 
       result['velocity'] = normalize_vector_hash(hash['velocity']) if hash.key?('velocity') && !hash['velocity'].nil?

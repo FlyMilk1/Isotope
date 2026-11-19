@@ -33,14 +33,26 @@ module Isotope
       end
     end
 
-    # Creates a new Rubidium::Scene2D (optionally with an explicit ID and initial state).
+    # Creates a new Rubidium::Scene2D (optionally with an explicit ID, initial state, and cell_size).
     # Returns [scene_id, scene].
-    def create_scene(id: nil, scene_data: nil)
+    def create_scene(id: nil, scene_data: nil, cell_size: :unset)
       scene = Serializer.build_scene(scene_data)
+      scene.cell_size = Serializer.parse_cell_size(cell_size) unless cell_size == :unset
       @mutex.synchronize do
         scene_id = id.nil? ? allocate_id : normalize_id(id)
         @scenes[scene_id] = scene
         [scene_id, scene]
+      end
+    end
+
+    # Sets the broad-phase spatial hashmap cell size for +scene_id+ (nil for auto).
+    def set_cell_size(scene_id, cell_size)
+      norm_id = normalize_id(scene_id)
+      parsed = Serializer.parse_cell_size(cell_size)
+      @mutex.synchronize do
+        scene = fetch_scene(norm_id)
+        scene.cell_size = parsed
+        scene
       end
     end
 

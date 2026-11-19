@@ -10,8 +10,6 @@
     <list default="true" id="93ed2195-febd-415d-a93d-6365f90604c0" name="Changes" comment="Enhance Ruby coverage configuration with pattern exclusions">
       <change beforePath="$PROJECT_DIR$/.idea/Isotope.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Isotope.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Gemfile" beforeDir="false" afterPath="$PROJECT_DIR$/Gemfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Gemfile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/Gemfile.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -152,7 +150,7 @@
     &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
     &quot;Test::Unit/Shoulda/Minitest.AgooTest.rb.executor&quot;: &quot;Run&quot;,
     &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
-    &quot;com.intellij.lang.ruby.rbs.tools.collection.workspace.sync.RbsCollectionUpdateProjectActivity#LAST_UPDATE_TIMESTAMP&quot;: &quot;1794983134261&quot;,
+    &quot;com.intellij.lang.ruby.rbs.tools.collection.workspace.sync.RbsCollectionUpdateProjectActivity#LAST_UPDATE_TIMESTAMP&quot;: &quot;1795074689353&quot;,
     &quot;copilot.chat.legacySessionMetadata.migrated&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;git.auto.fetch.suggestion.counter&quot;: &quot;1&quot;,
@@ -356,6 +354,7 @@
       <workItem from="1794471122747" duration="470000" />
       <workItem from="1794983075727" duration="735000" />
       <workItem from="1794999343296" duration="601000" />
+      <workItem from="1795074631083" duration="1551000" />
     </task>
     <task id="LOCAL-00001" summary="Add project configuration files and .gitignore">
       <option name="closed" value="true" />
