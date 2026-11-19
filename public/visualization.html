@@ -1,0 +1,1659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Isotope — Bouncy Squares &amp; Circles Visualization</title>
+  <link rel="icon" href="data:," />
+  <style>
+    :root {
+      --bg: #0b101b;
+      --panel: #131a2a;
+      --panel-alt: #182135;
+      --border: #26324d;
+      --text: #e6edf7;
+      --muted: #8fa1c2;
+      --accent: #38bdf8;
+      --accent-hover: #0ea5e9;
+      --ok: #34d399;
+      --warn: #fbbf24;
+      --err: #f87171;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      --sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 16px 20px 28px;
+      background: radial-gradient(circle at top, #121b2e 0%, var(--bg) 65%);
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 14px;
+      line-height: 1.4;
+    }
+
+    .container {
+      max-width: 1220px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 16px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+    }
+
+    .title-group h1 {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 650;
+      letter-spacing: 0.2px;
+    }
+
+    .title-group p {
+      margin: 2px 0 0;
+      color: var(--muted);
+      font-size: 12.5px;
+    }
+
+    .conn-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 600;
+      border: 1px solid var(--border);
+      background: var(--panel-alt);
+    }
+
+    .badge .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--muted);
+    }
+
+    .badge.connected {
+      color: var(--ok);
+      border-color: rgba(52, 211, 153, 0.35);
+    }
+    .badge.connected .dot {
+      background: var(--ok);
+      box-shadow: 0 0 8px var(--ok);
+    }
+
+    .badge.connecting {
+      color: var(--warn);
+      border-color: rgba(251, 191, 36, 0.35);
+    }
+    .badge.connecting .dot {
+      background: var(--warn);
+    }
+
+    .badge.error, .badge.disconnected {
+      color: var(--err);
+      border-color: rgba(248, 113, 113, 0.35);
+    }
+    .badge.error .dot, .badge.disconnected .dot {
+      background: var(--err);
+    }
+
+    input[type="text"],
+    input[type="number"] {
+      background: #0d1320;
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 6px 10px;
+      font-family: var(--mono);
+      font-size: 12.5px;
+    }
+
+    input[type="text"] {
+      width: 225px;
+    }
+
+    input[type="number"] {
+      width: 62px;
+      text-align: center;
+    }
+
+    button {
+      background: var(--panel-alt);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 550;
+      cursor: pointer;
+      transition: background 0.15s ease, border-color 0.15s ease;
+    }
+
+    button:hover:not(:disabled) {
+      background: #222e49;
+      border-color: #3c4f7a;
+    }
+
+    button.primary {
+      background: #0284c7;
+      border-color: #0ea5e9;
+      color: #fff;
+    }
+
+    button.primary:hover:not(:disabled) {
+      background: var(--accent-hover);
+    }
+
+    button:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+
+    .banner {
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 10px 14px;
+      border-radius: 8px;
+      background: rgba(248, 113, 113, 0.1);
+      border: 1px solid rgba(248, 113, 113, 0.35);
+      color: #fecaca;
+      font-size: 13px;
+    }
+
+    .banner.visible {
+      display: flex;
+    }
+
+    .banner code {
+      background: rgba(0, 0, 0, 0.35);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: var(--mono);
+      color: #fff;
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px 14px;
+      padding: 11px 16px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+    }
+
+    .control-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .divider {
+      width: 1px;
+      height: 24px;
+      background: var(--border);
+    }
+
+    label.inline {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--muted);
+      font-size: 12.5px;
+      user-select: none;
+    }
+
+    label.inline strong {
+      color: var(--text);
+      font-family: var(--mono);
+      font-weight: 600;
+      min-width: 34px;
+    }
+
+    input[type="range"] {
+      accent-color: var(--accent);
+      width: 110px;
+      cursor: pointer;
+    }
+
+    input[type="checkbox"] {
+      accent-color: var(--accent);
+      cursor: pointer;
+    }
+
+    .telemetry {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 8px;
+    }
+
+    .stat-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 8px 12px;
+    }
+
+    .stat-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: var(--muted);
+    }
+
+    .stat-value {
+      margin-top: 2px;
+      font-family: var(--mono);
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .arena-wrap {
+      position: relative;
+      background: #070b14;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+    }
+
+    canvas {
+      display: block;
+      width: 100%;
+      aspect-ratio: 20.8 / 12.8;
+      cursor: crosshair;
+    }
+
+    .arena-hint {
+      position: absolute;
+      right: 12px;
+      bottom: 10px;
+      font-size: 11.5px;
+      color: rgba(230, 237, 247, 0.55);
+      background: rgba(11, 16, 27, 0.72);
+      padding: 3px 8px;
+      border-radius: 5px;
+      pointer-events: none;
+    }
+
+    .table-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .table-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 9px 14px;
+      border-bottom: 1px solid var(--border);
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .table-header span {
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--muted);
+    }
+
+    .table-scroll {
+      overflow-x: auto;
+      max-height: 260px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: var(--mono);
+      font-size: 12px;
+    }
+
+    th, td {
+      padding: 7px 12px;
+      text-align: left;
+      border-bottom: 1px solid rgba(38, 50, 77, 0.55);
+      white-space: nowrap;
+    }
+
+    th {
+      position: sticky;
+      top: 0;
+      background: var(--panel-alt);
+      color: var(--muted);
+      font-family: var(--sans);
+      font-size: 11.5px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    tbody tr:hover {
+      background: rgba(56, 189, 248, 0.06);
+    }
+
+    .swatch {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      border-radius: 2px;
+      margin-right: 6px;
+      vertical-align: middle;
+    }
+
+    .swatch.circle {
+      border-radius: 50%;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="title-group">
+        <h1>Isotope Physics Visualization</h1>
+        <p>Authoritative 2D rigid-body &amp; elastic collision simulation computed server-side by Isotope (Rubidium) over WebSocket</p>
+      </div>
+      <div class="conn-bar">
+        <span id="connBadge" class="badge disconnected"><span class="dot"></span><span id="connText">Disconnected</span></span>
+        <input id="wsUrl" type="text" aria-label="WebSocket URL" />
+        <button id="connectBtn" class="primary" type="button">Connect</button>
+      </div>
+    </header>
+
+    <div id="serverHint" class="banner visible">
+      <div>
+        <strong id="hintTitle">Not connected to Isotope server.</strong>
+        <span id="hintDetail">Start the server with <code>bundle exec ruby server.rb</code> and click Connect.</span>
+      </div>
+    </div>
+
+    <section class="controls">
+      <div class="control-group">
+        <button id="playPauseBtn" class="primary" type="button" disabled>Pause</button>
+        <button id="stepBtn" type="button" disabled>Step (1 tick)</button>
+        <button id="resetBtn" type="button" disabled>Reset &amp; Randomize</button>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="control-group">
+        <button id="addSquareBtn" type="button" disabled>+ Square</button>
+        <button id="addCircleBtn" type="button" disabled>+ Circle</button>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="control-group">
+        <label class="inline">Squares
+          <input id="squaresCount" type="number" min="0" max="15" value="4" />
+        </label>
+        <label class="inline">Circles
+          <input id="circlesCount" type="number" min="0" max="15" value="4" />
+        </label>
+        <label class="inline">Bounciness
+          <input id="bouncinessSlider" type="range" min="0" max="1" step="0.05" value="1" />
+          <strong id="bouncinessVal">1.00</strong>
+        </label>
+        <label class="inline">
+          <input id="gravityToggle" type="checkbox" /> Gravity (-9.8 y)
+        </label>
+        <label class="inline">Broad Grid
+          <input id="gridSizeSlider" type="range" min="0.5" max="10" step="0.25" value="2.5" disabled />
+          <strong id="gridSizeVal">Auto</strong>
+        </label>
+        <label class="inline">
+          <input id="gridAutoToggle" type="checkbox" checked /> Auto
+        </label>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="control-group">
+        <label class="inline"><input id="showBroadGrid" type="checkbox" checked /> Broad Grid</label>
+        <label class="inline"><input id="showVel" type="checkbox" checked /> Velocities</label>
+        <label class="inline"><input id="showTrails" type="checkbox" checked /> Trails</label>
+        <label class="inline"><input id="showIds" type="checkbox" checked /> IDs</label>
+      </div>
+    </section>
+
+    <section class="telemetry">
+      <div class="stat-card">
+        <div class="stat-label">Scene ID</div>
+        <div class="stat-value" id="statSceneId">—</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Tick</div>
+        <div class="stat-value" id="statTick">0</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Server RTT (ms)</div>
+        <div class="stat-value" id="statRtt">—</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">FPS</div>
+        <div class="stat-value" id="statFps">0</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Dynamic Bodies</div>
+        <div class="stat-value" id="statBodies">0</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Total Kinetic Energy</div>
+        <div class="stat-value" id="statKe">0.00</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Broad Grid Cell</div>
+        <div class="stat-value" id="statGridSize">—</div>
+      </div>
+    </section>
+
+    <div class="arena-wrap">
+      <canvas id="arena"></canvas>
+      <div class="arena-hint">Click inside arena to spawn a bouncy shape &bull; Space: Play/Pause</div>
+    </div>
+
+    <section class="table-card">
+      <div class="table-header">
+        <div>Dynamic Bodies (Live Isotope Snapshot)</div>
+        <span>Arena: x &isin; [-10, 10], y &isin; [-6, 6] &bull; Zero client-side physics</span>
+      </div>
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Shape</th>
+              <th>Size</th>
+              <th>Position (x, y)</th>
+              <th>Velocity (vx, vy)</th>
+              <th>Speed</th>
+              <th>Mass</th>
+              <th>Bounciness</th>
+            </tr>
+          </thead>
+          <tbody id="bodiesTableBody">
+            <tr><td colspan="8" style="color: var(--muted); text-align: center;">Waiting for Isotope scene snapshot...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    (() => {
+      'use strict';
+
+      // Arena & rendering constants (pure configuration, no client-side physics integration)
+      const WORLD_WIDTH = 20;
+      const WORLD_HEIGHT = 12;
+      const HALF_W = WORLD_WIDTH / 2;
+      const HALF_H = WORLD_HEIGHT / 2;
+      const WALL_THICKNESS = 2.0;
+      const VIEW_W = 20.8;
+      const VIEW_H = 12.8;
+      const FIXED_DT = 1 / 60;
+      const GRAVITY_Y = -9.8;
+      const TRAIL_MAX_POINTS = 22;
+
+      const PALETTE = [
+        '#38bdf8', '#fb7185', '#34d399', '#fbbf24',
+        '#a78bfa', '#f472b6', '#2dd4bf', '#fb923c',
+        '#60a5fa', '#a3e635', '#e879f9', '#facc15'
+      ];
+
+      // DOM elements
+      const connBadge = document.getElementById('connBadge');
+      const connText = document.getElementById('connText');
+      const wsUrlInput = document.getElementById('wsUrl');
+      const connectBtn = document.getElementById('connectBtn');
+      const serverHint = document.getElementById('serverHint');
+      const hintTitle = document.getElementById('hintTitle');
+      const hintDetail = document.getElementById('hintDetail');
+
+      const playPauseBtn = document.getElementById('playPauseBtn');
+      const stepBtn = document.getElementById('stepBtn');
+      const resetBtn = document.getElementById('resetBtn');
+      const addSquareBtn = document.getElementById('addSquareBtn');
+      const addCircleBtn = document.getElementById('addCircleBtn');
+
+      const squaresCountInput = document.getElementById('squaresCount');
+      const circlesCountInput = document.getElementById('circlesCount');
+      const bouncinessSlider = document.getElementById('bouncinessSlider');
+      const bouncinessVal = document.getElementById('bouncinessVal');
+      const gravityToggle = document.getElementById('gravityToggle');
+      const gridSizeSlider = document.getElementById('gridSizeSlider');
+      const gridSizeVal = document.getElementById('gridSizeVal');
+      const gridAutoToggle = document.getElementById('gridAutoToggle');
+      const showBroadGridToggle = document.getElementById('showBroadGrid');
+      const showVelToggle = document.getElementById('showVel');
+      const showTrailsToggle = document.getElementById('showTrails');
+      const showIdsToggle = document.getElementById('showIds');
+
+      const statSceneId = document.getElementById('statSceneId');
+      const statTick = document.getElementById('statTick');
+      const statRtt = document.getElementById('statRtt');
+      const statFps = document.getElementById('statFps');
+      const statBodies = document.getElementById('statBodies');
+      const statKe = document.getElementById('statKe');
+      const statGridSize = document.getElementById('statGridSize');
+      const bodiesTableBody = document.getElementById('bodiesTableBody');
+
+      const canvas = document.getElementById('arena');
+      const ctx = canvas.getContext('2d');
+
+      // Session & transport state
+      let ws = null;
+      let connected = false;
+      let sceneReady = false;
+      let isPlaying = true;
+      let stepInFlight = false;
+      let sceneGravityOn = false;
+      let currentSceneId = generateSceneId();
+      let requestSeq = 1;
+      const pendingRequests = new Map();
+
+      // Snapshot & purely visual state
+      let latestScene = null;
+      let tickCount = 0;
+      let lastRttMs = null;
+      let trails = new Map();
+      let prevVelocities = new Map();
+      let impactFlashes = new Map();
+      let clickSpawnSquareNext = true;
+
+      // Timing state
+      let lastRafTime = performance.now();
+      let accumulator = 0;
+      let fpsFrames = 0;
+      let fpsWindowStart = performance.now();
+      let currentFps = 0;
+
+      function generateSceneId() {
+        const rand = Math.random().toString(36).slice(2, 8);
+        return `bouncy_arena_${rand}`;
+      }
+
+      function defaultWsUrl() {
+        if (window.location.protocol === 'http:' || window.location.protocol === 'https:') {
+          const proto = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+          return `${proto}//${window.location.host}/ws`;
+        }
+        return 'ws://localhost:6464/ws';
+      }
+
+      function randRange(min, max) {
+        return min + Math.random() * (max - min);
+      }
+
+      function round2(num) {
+        return Math.round(num * 100) / 100;
+      }
+
+      function clampCount(inputEl) {
+        const parsed = parseInt(inputEl.value, 10);
+        const clamped = Number.isNaN(parsed) ? 4 : Math.max(0, Math.min(15, parsed));
+        inputEl.value = String(clamped);
+        return clamped;
+      }
+
+      function getBounciness() {
+        return parseFloat(bouncinessSlider.value);
+      }
+
+      function bodyColor(id) {
+        const num = parseInt(String(id), 10);
+        const idx = Number.isNaN(num) ? 0 : Math.abs(num - 1);
+        return PALETTE[idx % PALETTE.length];
+      }
+
+      function buildWallBodies() {
+        // Keep wall bounciness at 0.0 so each dynamic body's own bounciness controls restitution
+        // (Rubidium uses max(body_a.bounciness, body_b.bounciness)).
+        return [
+          {
+            mass: 'Infinity',
+            static: true,
+            bounciness: 0.0,
+            rotation: 0.0,
+            drag: 0.0,
+            position: { x: 0.0, y: HALF_H + WALL_THICKNESS / 2 },
+            collider: { type: 'RectangleCollider', width: WORLD_WIDTH + WALL_THICKNESS * 2, height: WALL_THICKNESS }
+          },
+          {
+            mass: 'Infinity',
+            static: true,
+            bounciness: 0.0,
+            rotation: 0.0,
+            drag: 0.0,
+            position: { x: 0.0, y: -(HALF_H + WALL_THICKNESS / 2) },
+            collider: { type: 'RectangleCollider', width: WORLD_WIDTH + WALL_THICKNESS * 2, height: WALL_THICKNESS }
+          },
+          {
+            mass: 'Infinity',
+            static: true,
+            bounciness: 0.0,
+            rotation: 0.0,
+            drag: 0.0,
+            position: { x: -(HALF_W + WALL_THICKNESS / 2), y: 0.0 },
+            collider: { type: 'RectangleCollider', width: WALL_THICKNESS, height: WORLD_HEIGHT + WALL_THICKNESS * 4 }
+          },
+          {
+            mass: 'Infinity',
+            static: true,
+            bounciness: 0.0,
+            rotation: 0.0,
+            drag: 0.0,
+            position: { x: HALF_W + WALL_THICKNESS / 2, y: 0.0 },
+            collider: { type: 'RectangleCollider', width: WALL_THICKNESS, height: WORLD_HEIGHT + WALL_THICKNESS * 4 }
+          }
+        ];
+      }
+
+      function bodyHalfExtents(collider) {
+        if (!collider) return { hx: 0.5, hy: 0.5 };
+        if (collider.type === 'CircleCollider') {
+          return { hx: collider.radius, hy: collider.radius };
+        }
+        return { hx: collider.width / 2, hy: collider.height / 2 };
+      }
+
+      function bodiesOverlapWithMargin(posA, colA, posB, colB, margin) {
+        if (colA.type === 'CircleCollider' && colB.type === 'CircleCollider') {
+          const dx = posB.x - posA.x;
+          const dy = posB.y - posA.y;
+          const minD = colA.radius + colB.radius + margin;
+          return dx * dx + dy * dy < minD * minD;
+        }
+        const extA = bodyHalfExtents(colA);
+        const extB = bodyHalfExtents(colB);
+        return (
+          Math.abs(posB.x - posA.x) < extA.hx + extB.hx + margin &&
+          Math.abs(posB.y - posA.y) < extA.hy + extB.hy + margin
+        );
+      }
+
+      function findNonOverlappingPosition(collider, existingDynamicBodies) {
+        const { hx, hy } = bodyHalfExtents(collider);
+        const wallMargin = 0.35;
+        const maxX = Math.max(0.2, HALF_W - hx - wallMargin);
+        const maxY = Math.max(0.2, HALF_H - hy - wallMargin);
+        const pairwiseMargin = 0.25;
+
+        let fallback = { x: round2(randRange(-maxX, maxX)), y: round2(randRange(-maxY, maxY)) };
+        for (let attempt = 0; attempt < 250; attempt += 1) {
+          const candidate = { x: round2(randRange(-maxX, maxX)), y: round2(randRange(-maxY, maxY)) };
+          fallback = candidate;
+          let overlaps = false;
+          for (const other of existingDynamicBodies) {
+            if (!other.collider || !other.position) continue;
+            if (bodiesOverlapWithMargin(candidate, collider, other.position, other.collider, pairwiseMargin)) {
+              overlaps = true;
+              break;
+            }
+          }
+          if (!overlaps) return candidate;
+        }
+        return fallback;
+      }
+
+      function makeRandomBody(shape, existingDynamicBodies, forcedPosition = null) {
+        let collider;
+        let mass;
+
+        if (shape === 'square') {
+          const size = round2(randRange(1.1, 1.6));
+          collider = { type: 'RectangleCollider', width: size, height: size };
+          mass = round2(Math.max(1.0, size * size));
+        } else {
+          const radius = round2(randRange(0.55, 0.85));
+          collider = { type: 'CircleCollider', radius };
+          mass = round2(Math.max(1.0, Math.PI * radius * radius));
+        }
+
+        const { hx, hy } = bodyHalfExtents(collider);
+        let position;
+        if (forcedPosition) {
+          const margin = 0.05;
+          const clampedX = Math.max(-(HALF_W - hx - margin), Math.min(HALF_W - hx - margin, forcedPosition.x));
+          const clampedY = Math.max(-(HALF_H - hy - margin), Math.min(HALF_H - hy - margin, forcedPosition.y));
+          position = { x: round2(clampedX), y: round2(clampedY) };
+        } else {
+          position = findNonOverlappingPosition(collider, existingDynamicBodies);
+        }
+
+        const angle = randRange(0, Math.PI * 2);
+        const speed = randRange(3.5, 9.5);
+
+        return {
+          mass,
+          static: false,
+          bounciness: getBounciness(),
+          rotation: 0.0,
+          angular_velocity: 0.0,
+          drag: 0.0,
+          position,
+          velocity: {
+            x: round2(Math.cos(angle) * speed),
+            y: round2(Math.sin(angle) * speed)
+          },
+          acceleration: {
+            x: 0.0,
+            y: gravityToggle.checked ? GRAVITY_Y : 0.0
+          },
+          collider
+        };
+      }
+
+      function buildInitialRigidBodies() {
+        const walls = buildWallBodies();
+        const sqCount = clampCount(squaresCountInput);
+        const cirCount = clampCount(circlesCountInput);
+        const shapes = [];
+
+        for (let i = 0; i < sqCount; i += 1) shapes.push('square');
+        for (let i = 0; i < cirCount; i += 1) shapes.push('circle');
+
+        // Interleave / shuffle spawn order for varied initial placement
+        for (let i = shapes.length - 1; i > 0; i -= 1) {
+          const j = Math.floor(Math.random() * (i + 1));
+          const tmp = shapes[i];
+          shapes[i] = shapes[j];
+          shapes[j] = tmp;
+        }
+
+        const dynamicBodies = [];
+        for (const shape of shapes) {
+          dynamicBodies.push(makeRandomBody(shape, dynamicBodies));
+        }
+
+        return walls.concat(dynamicBodies);
+      }
+
+      function setConnectionUi(state, detail = '') {
+        connBadge.className = `badge ${state}`;
+        const labels = {
+          connected: 'Connected',
+          connecting: 'Connecting...',
+          disconnected: 'Disconnected',
+          error: 'Error'
+        };
+        connText.textContent = labels[state] || state;
+
+        const interactive = state === 'connected' && sceneReady;
+        playPauseBtn.disabled = !interactive;
+        stepBtn.disabled = !interactive;
+        resetBtn.disabled = state !== 'connected';
+        addSquareBtn.disabled = !interactive;
+        addCircleBtn.disabled = !interactive;
+        connectBtn.textContent = state === 'connected' ? 'Reconnect' : 'Connect';
+
+        if (state === 'connected') {
+          serverHint.classList.remove('visible');
+        } else {
+          serverHint.classList.add('visible');
+          if (state === 'connecting') {
+            hintTitle.textContent = 'Connecting to Isotope server...';
+            hintDetail.textContent = `Opening WebSocket to ${wsUrlInput.value.trim()}`;
+          } else {
+            hintTitle.textContent = state === 'error' ? 'WebSocket connection error.' : 'Not connected to Isotope server.';
+            hintDetail.innerHTML = detail || 'Start the server with <code>bundle exec ruby server.rb</code> and click Connect.';
+          }
+        }
+      }
+
+      function updatePlayPauseButton() {
+        playPauseBtn.textContent = isPlaying ? 'Pause' : 'Play';
+      }
+
+      function rejectAllPending(reason) {
+        for (const [reqId, entry] of pendingRequests.entries()) {
+          entry.reject(new Error(reason));
+          pendingRequests.delete(reqId);
+        }
+      }
+
+      function sendRequest(payload, { ignoreNotFound = false } = {}) {
+        if (!ws || ws.readyState !== WebSocket.OPEN) {
+          return Promise.reject(new Error('WebSocket is not open'));
+        }
+        const requestId = `req_${requestSeq++}`;
+        const message = { ...payload, request_id: requestId };
+
+        return new Promise((resolve, reject) => {
+          pendingRequests.set(requestId, {
+            resolve,
+            reject,
+            sentAt: performance.now(),
+            action: payload.action,
+            ignoreNotFound
+          });
+          ws.send(JSON.stringify(message));
+        });
+      }
+
+      function sendDeleteBestEffort() {
+        if (!ws || ws.readyState !== WebSocket.OPEN || !sceneReady) return;
+        try {
+          ws.send(JSON.stringify({ action: 'delete_scene', scene_id: currentSceneId }));
+        } catch (_err) {
+          // Ignore errors during teardown
+        }
+      }
+
+      function clearVisualHistory() {
+        trails.clear();
+        prevVelocities.clear();
+        impactFlashes.clear();
+      }
+
+      function ingestSceneSnapshot(scene, { detectImpacts = false } = {}) {
+        if (!scene || !scene.rigid_bodies) return;
+        latestScene = scene;
+
+        const ay = sceneGravityOn ? GRAVITY_Y : 0.0;
+        const activeIds = new Set();
+
+        for (const [id, body] of Object.entries(scene.rigid_bodies)) {
+          if (body.static) continue;
+          activeIds.add(id);
+
+          // Record trail points for visual clarity
+          const pos = body.position;
+          if (pos) {
+            let pts = trails.get(id);
+            if (!pts) {
+              pts = [];
+              trails.set(id, pts);
+            }
+            const last = pts[pts.length - 1];
+            if (!last || Math.hypot(pos.x - last.x, pos.y - last.y) > 0.04) {
+              pts.push({ x: pos.x, y: pos.y });
+              if (pts.length > TRAIL_MAX_POINTS) pts.shift();
+            }
+          }
+
+          // Detect server-side collision impulses by comparing against expected free acceleration change
+          const vel = body.velocity || { x: 0, y: 0 };
+          const prev = prevVelocities.get(id);
+          if (detectImpacts && prev) {
+            const expectedVx = prev.x;
+            const expectedVy = prev.y + ay * FIXED_DT;
+            const dv = Math.hypot(vel.x - expectedVx, vel.y - expectedVy);
+            if (dv > 0.25) {
+              impactFlashes.set(id, 1.0);
+            }
+          }
+          prevVelocities.set(id, { x: vel.x, y: vel.y });
+        }
+
+        // Prune removed bodies
+        for (const id of trails.keys()) {
+          if (!activeIds.has(id)) trails.delete(id);
+        }
+        for (const id of prevVelocities.keys()) {
+          if (!activeIds.has(id)) prevVelocities.delete(id);
+        }
+        for (const id of impactFlashes.keys()) {
+          if (!activeIds.has(id)) impactFlashes.delete(id);
+        }
+
+        updateTelemetryAndTable();
+      }
+
+      function getDynamicEntries() {
+        if (!latestScene || !latestScene.rigid_bodies) return [];
+        return Object.entries(latestScene.rigid_bodies)
+          .filter(([, body]) => !body.static)
+          .sort((a, b) => Number(a[0]) - Number(b[0]));
+      }
+
+      function updateTelemetryAndTable() {
+        statSceneId.textContent = sceneReady ? currentSceneId : '—';
+        statTick.textContent = String(tickCount);
+        statRtt.textContent = lastRttMs !== null ? lastRttMs.toFixed(1) : '—';
+        statFps.textContent = String(currentFps);
+
+        const dynamicEntries = getDynamicEntries();
+        statBodies.textContent = String(dynamicEntries.length);
+
+        let totalKe = 0;
+        for (const [, body] of dynamicEntries) {
+          const mass = Number(body.mass);
+          if (!Number.isFinite(mass) || mass <= 0) continue;
+          const vx = body.velocity ? body.velocity.x : 0;
+          const vy = body.velocity ? body.velocity.y : 0;
+          totalKe += 0.5 * mass * (vx * vx + vy * vy);
+        }
+        statKe.textContent = totalKe.toFixed(2);
+
+        if (latestScene && (latestScene.effective_cell_size != null || latestScene.cell_size != null)) {
+          const eff = Number(latestScene.effective_cell_size ?? latestScene.cell_size);
+          const isAuto = latestScene.cell_size == null;
+          statGridSize.textContent = `${eff.toFixed(2)} (${isAuto ? 'auto' : 'manual'})`;
+          if (isAuto) {
+            gridSizeVal.textContent = `Auto (${eff.toFixed(2)})`;
+          } else {
+            gridSizeVal.textContent = eff.toFixed(2);
+          }
+        } else {
+          statGridSize.textContent = '—';
+        }
+
+        if (dynamicEntries.length === 0) {
+          bodiesTableBody.innerHTML = '<tr><td colspan="8" style="color: var(--muted); text-align: center;">No dynamic bodies in scene.</td></tr>';
+          return;
+        }
+
+        const rowsHtml = dynamicEntries.map(([id, body]) => {
+          const col = body.collider || {};
+          const isCircle = col.type === 'CircleCollider';
+          const shapeName = isCircle ? 'Circle' : 'Square';
+          const sizeText = isCircle
+            ? `r=${Number(col.radius).toFixed(2)}`
+            : `${Number(col.width).toFixed(2)}×${Number(col.height).toFixed(2)}`;
+          const px = body.position ? body.position.x.toFixed(2) : '0.00';
+          const py = body.position ? body.position.y.toFixed(2) : '0.00';
+          const vx = body.velocity ? body.velocity.x : 0;
+          const vy = body.velocity ? body.velocity.y : 0;
+          const speed = Math.hypot(vx, vy).toFixed(2);
+          const mass = Number(body.mass).toFixed(2);
+          const bounce = Number(body.bounciness ?? 0).toFixed(2);
+          const color = bodyColor(id);
+
+          return `<tr>
+            <td><span class="swatch ${isCircle ? 'circle' : ''}" style="background:${color}"></span>#${id}</td>
+            <td>${shapeName}</td>
+            <td>${sizeText}</td>
+            <td>(${px}, ${py})</td>
+            <td>(${vx.toFixed(2)}, ${vy.toFixed(2)})</td>
+            <td>${speed}</td>
+            <td>${mass}</td>
+            <td>${bounce}</td>
+          </tr>`;
+        }).join('');
+
+        bodiesTableBody.innerHTML = rowsHtml;
+      }
+
+      async function createFreshScene() {
+        sceneReady = false;
+        stepInFlight = false;
+        tickCount = 0;
+        clearVisualHistory();
+        sceneGravityOn = gravityToggle.checked;
+
+        // Create an empty scene first, then add each body individually so every
+        // WebSocket message stays small and unfragmented (Agoo requires FIN=1).
+        const createPayload = {
+          action: 'create_scene',
+          scene_id: currentSceneId
+        };
+        if (!gridAutoToggle.checked) {
+          createPayload.cell_size = Number(gridSizeSlider.value);
+        }
+        const created = await sendRequest(createPayload);
+
+        currentSceneId = String(created.scene_id);
+        const rigidBodies = buildInitialRigidBodies();
+        for (const body of rigidBodies) {
+          await sendRequest({
+            action: 'create_rigidbody',
+            scene_id: currentSceneId,
+            rigid_body: body
+          });
+        }
+
+        const snapshot = await sendRequest({
+          action: 'get_scene',
+          scene_id: currentSceneId
+        });
+
+        sceneReady = true;
+        accumulator = 0;
+        setConnectionUi('connected');
+        ingestSceneSnapshot(snapshot.scene, { detectImpacts: false });
+      }
+
+      let resetQueue = Promise.resolve();
+      function resetAndRandomize() {
+        if (!connected) return;
+        resetQueue = resetQueue.then(async () => {
+          const wasReady = sceneReady;
+          sceneReady = false;
+          stepInFlight = false;
+          setConnectionUi('connected');
+
+          if (wasReady) {
+            try {
+              await sendRequest({ action: 'delete_scene', scene_id: currentSceneId }, { ignoreNotFound: true });
+            } catch (_err) {
+              // Ignore missing scene during reset
+            }
+          }
+          await createFreshScene();
+        }).catch((err) => {
+          console.error('Reset failed:', err);
+        });
+      }
+
+      async function spawnBody(shape, forcedPosition = null) {
+        if (!connected || !sceneReady) return;
+        const existingDynamic = getDynamicEntries().map(([, b]) => b);
+        const bodyPayload = makeRandomBody(shape, existingDynamic, forcedPosition);
+        try {
+          const res = await sendRequest({
+            action: 'create_rigidbody',
+            scene_id: currentSceneId,
+            rigid_body: bodyPayload
+          });
+          if (latestScene && latestScene.rigid_bodies && res.rigidbody_id != null && res.rigid_body) {
+            latestScene.rigid_bodies[String(res.rigidbody_id)] = res.rigid_body;
+            ingestSceneSnapshot(latestScene, { detectImpacts: false });
+          }
+        } catch (err) {
+          console.error('Failed to spawn rigid body:', err);
+        }
+      }
+
+      async function applyLiveGravityToggle() {
+        const targetOn = gravityToggle.checked;
+        if (!connected || !sceneReady || targetOn === sceneGravityOn) {
+          sceneGravityOn = targetOn;
+          return;
+        }
+        const deltaAccY = targetOn ? GRAVITY_Y : -GRAVITY_Y;
+        sceneGravityOn = targetOn;
+
+        const dynamicEntries = getDynamicEntries();
+        await Promise.all(dynamicEntries.map(([id, body]) => {
+          const mass = Number(body.mass);
+          if (!Number.isFinite(mass) || mass <= 0) return Promise.resolve();
+          return sendRequest({
+            action: 'add_linear_force',
+            scene_id: currentSceneId,
+            rigidbody_id: Number(id),
+            force: { x: 0.0, y: deltaAccY * mass }
+          }).catch(() => null);
+        }));
+      }
+
+      function stepSimulation() {
+        if (!connected || !sceneReady || stepInFlight) return;
+        stepInFlight = true;
+        sendRequest({
+          action: 'update',
+          scene_id: currentSceneId,
+          time_step: FIXED_DT
+        }).then((res) => {
+          stepInFlight = false;
+          tickCount += 1;
+          ingestSceneSnapshot(res.scene, { detectImpacts: true });
+        }).catch((err) => {
+          stepInFlight = false;
+          console.warn('Step failed:', err.message);
+        });
+      }
+
+      function connectWebSocket() {
+        const url = wsUrlInput.value.trim() || defaultWsUrl();
+        wsUrlInput.value = url;
+
+        if (ws) {
+          const oldWs = ws;
+          ws = null;
+          if (oldWs.readyState === WebSocket.OPEN && sceneReady) {
+            try {
+              oldWs.send(JSON.stringify({ action: 'delete_scene', scene_id: currentSceneId }));
+            } catch (_err) {
+              // ignore
+            }
+          }
+          oldWs.onopen = null;
+          oldWs.onmessage = null;
+          oldWs.onerror = null;
+          oldWs.onclose = null;
+          try {
+            oldWs.close();
+          } catch (_err) {
+            // ignore
+          }
+        }
+
+        rejectAllPending('WebSocket reconnecting');
+        connected = false;
+        sceneReady = false;
+        stepInFlight = false;
+        currentSceneId = generateSceneId();
+        setConnectionUi('connecting');
+
+        let socket;
+        try {
+          socket = new WebSocket(url);
+        } catch (err) {
+          setConnectionUi('error', `Invalid WebSocket URL: ${err.message}`);
+          return;
+        }
+        ws = socket;
+
+        socket.onopen = () => {
+          if (ws !== socket) return;
+          connected = true;
+          setConnectionUi('connected');
+          createFreshScene().catch((err) => {
+            setConnectionUi('error', `Failed to initialize Isotope scene: ${err.message}`);
+          });
+        };
+
+        socket.onmessage = (event) => {
+          if (ws !== socket) return;
+          let msg;
+          try {
+            msg = JSON.parse(event.data);
+          } catch (err) {
+            console.error('Malformed JSON from Isotope:', err);
+            return;
+          }
+
+          if (msg.request_id && pendingRequests.has(msg.request_id)) {
+            const entry = pendingRequests.get(msg.request_id);
+            pendingRequests.delete(msg.request_id);
+            lastRttMs = performance.now() - entry.sentAt;
+
+            if (msg.status === 'error') {
+              if (entry.ignoreNotFound && /Scene not found/i.test(msg.error || '')) {
+                entry.resolve(msg);
+              } else {
+                entry.reject(new Error(msg.error || 'Unknown Isotope error'));
+              }
+            } else {
+              entry.resolve(msg);
+            }
+            return;
+          }
+
+          // Handle asynchronous broadcast events from other connected clients
+          if (msg.event && String(msg.scene_id) === String(currentSceneId)) {
+            if (msg.event === 'scene_updated' && msg.scene) {
+              tickCount += 1;
+              ingestSceneSnapshot(msg.scene, { detectImpacts: true });
+            } else if (msg.event === 'rigidbody_created' && latestScene && latestScene.rigid_bodies) {
+              latestScene.rigid_bodies[String(msg.rigidbody_id)] = msg.rigid_body;
+              ingestSceneSnapshot(latestScene, { detectImpacts: false });
+            } else if (msg.event === 'rigidbody_removed' && latestScene && latestScene.rigid_bodies) {
+              delete latestScene.rigid_bodies[String(msg.rigidbody_id)];
+              ingestSceneSnapshot(latestScene, { detectImpacts: false });
+            }
+          }
+        };
+
+        socket.onerror = () => {
+          if (ws !== socket) return;
+          connected = false;
+          sceneReady = false;
+          stepInFlight = false;
+          setConnectionUi('error');
+        };
+
+        socket.onclose = () => {
+          if (ws !== socket) return;
+          connected = false;
+          sceneReady = false;
+          stepInFlight = false;
+          rejectAllPending('WebSocket closed');
+          setConnectionUi('disconnected');
+        };
+      }
+
+      // Canvas sizing & rendering
+      function resizeCanvas() {
+        const rect = canvas.getBoundingClientRect();
+        if (rect.width <= 0 || rect.height <= 0) return;
+        const dpr = window.devicePixelRatio || 1;
+        const targetW = Math.round(rect.width * dpr);
+        const targetH = Math.round(rect.height * dpr);
+        if (canvas.width !== targetW || canvas.height !== targetH) {
+          canvas.width = targetW;
+          canvas.height = targetH;
+        }
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        return { cssW: rect.width, cssH: rect.height };
+      }
+
+      function worldTransform(cssW, cssH) {
+        const scale = Math.min(cssW / VIEW_W, cssH / VIEW_H);
+        const toX = (wx) => cssW / 2 + wx * scale;
+        const toY = (wy) => cssH / 2 - wy * scale;
+        const toWorld = (px, py) => ({
+          x: (px - cssW / 2) / scale,
+          y: (cssH / 2 - py) / scale
+        });
+        return { scale, toX, toY, toWorld };
+      }
+
+      function drawArrow(x1, y1, x2, y2, color) {
+        const dx = x2 - x1;
+        const dy = y2 - y1;
+        const len = Math.hypot(dx, dy);
+        if (len < 3) return;
+        const angle = Math.atan2(dy, dx);
+        const headLen = Math.min(8, Math.max(4, len * 0.3));
+
+        ctx.save();
+        ctx.strokeStyle = color;
+        ctx.fillStyle = color;
+        ctx.lineWidth = 1.6;
+        ctx.beginPath();
+        ctx.moveTo(x1, y1);
+        ctx.lineTo(x2, y2);
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.moveTo(x2, y2);
+        ctx.lineTo(x2 - headLen * Math.cos(angle - Math.PI / 6), y2 - headLen * Math.sin(angle - Math.PI / 6));
+        ctx.lineTo(x2 - headLen * Math.cos(angle + Math.PI / 6), y2 - headLen * Math.sin(angle + Math.PI / 6));
+        ctx.closePath();
+        ctx.fill();
+        ctx.restore();
+      }
+
+      function renderScene(frameDt) {
+        const size = resizeCanvas();
+        if (!size) return;
+        const { cssW, cssH } = size;
+        const { scale, toX, toY } = worldTransform(cssW, cssH);
+
+        // Background
+        ctx.fillStyle = '#070b14';
+        ctx.fillRect(0, 0, cssW, cssH);
+
+        // Arena interior & 1-unit grid
+        const arenaLeft = toX(-HALF_W);
+        const arenaTop = toY(HALF_H);
+        const arenaW = WORLD_WIDTH * scale;
+        const arenaH = WORLD_HEIGHT * scale;
+
+        ctx.fillStyle = '#0c1322';
+        ctx.fillRect(arenaLeft, arenaTop, arenaW, arenaH);
+
+        ctx.strokeStyle = 'rgba(143, 161, 194, 0.09)';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        for (let gx = -HALF_W; gx <= HALF_W; gx += 1) {
+          const px = Math.round(toX(gx)) + 0.5;
+          ctx.moveTo(px, arenaTop);
+          ctx.lineTo(px, arenaTop + arenaH);
+        }
+        for (let gy = -HALF_H; gy <= HALF_H; gy += 1) {
+          const py = Math.round(toY(gy)) + 0.5;
+          ctx.moveTo(arenaLeft, py);
+          ctx.lineTo(arenaLeft + arenaW, py);
+        }
+        ctx.stroke();
+
+        // Subtle origin axes
+        ctx.strokeStyle = 'rgba(143, 161, 194, 0.18)';
+        ctx.beginPath();
+        ctx.moveTo(toX(-HALF_W), toY(0));
+        ctx.lineTo(toX(HALF_W), toY(0));
+        ctx.moveTo(toX(0), toY(-HALF_H));
+        ctx.lineTo(toX(0), toY(HALF_H));
+        ctx.stroke();
+
+        if (!latestScene || !latestScene.rigid_bodies) return;
+
+        // Decay visual impact flashes purely for rendering feedback
+        for (const [id, flash] of impactFlashes.entries()) {
+          const next = flash - frameDt * 4.5;
+          if (next <= 0) impactFlashes.delete(id);
+          else impactFlashes.set(id, next);
+        }
+
+        const entries = Object.entries(latestScene.rigid_bodies);
+
+        // 0. Render broad-phase collision check grid (SpatialHashmap)
+        const broadCellSize = Number(latestScene.effective_cell_size ?? latestScene.cell_size);
+        if (showBroadGridToggle.checked && Number.isFinite(broadCellSize) && broadCellSize > 0) {
+          const cellCounts = new Map();
+          for (const [, body] of entries) {
+            if (!body.collider || !body.position) continue;
+            const col = body.collider;
+            const px = body.position.x;
+            const py = body.position.y;
+            let hx = 0;
+            let hy = 0;
+            if (col.type === 'CircleCollider') {
+              hx = Number(col.radius) || 0;
+              hy = hx;
+            } else if (col.type === 'RectangleCollider') {
+              hx = (Number(col.width) || 0) / 2;
+              hy = (Number(col.height) || 0) / 2;
+            }
+            if (hx <= 0 || hy <= 0) continue;
+
+            const minCx = Math.floor((px - hx) / broadCellSize);
+            const maxCx = Math.floor((px + hx) / broadCellSize);
+            const minCy = Math.floor((py - hy) / broadCellSize);
+            const maxCy = Math.floor((py + hy) / broadCellSize);
+            for (let cx = minCx; cx <= maxCx; cx += 1) {
+              for (let cy = minCy; cy <= maxCy; cy += 1) {
+                const key = `${cx},${cy}`;
+                cellCounts.set(key, (cellCounts.get(key) || 0) + 1);
+              }
+            }
+          }
+
+          ctx.save();
+          ctx.beginPath();
+          ctx.rect(arenaLeft, arenaTop, arenaW, arenaH);
+          ctx.clip();
+
+          // Highlight occupied spatial hash cells (amber when >= 2 bodies share a cell)
+          for (const [key, count] of cellCounts.entries()) {
+            const [cx, cy] = key.split(',').map(Number);
+            const x0 = toX(cx * broadCellSize);
+            const y0 = toY((cy + 1) * broadCellSize);
+            const wPx = broadCellSize * scale;
+            const hPx = broadCellSize * scale;
+            ctx.fillStyle = count >= 2 ? 'rgba(251, 191, 36, 0.14)' : 'rgba(56, 189, 248, 0.05)';
+            ctx.fillRect(x0, y0, wPx, hPx);
+          }
+
+          // Draw dashed broad-phase grid lines aligned at world (0, 0)
+          ctx.strokeStyle = 'rgba(56, 189, 248, 0.36)';
+          ctx.lineWidth = 1;
+          ctx.setLineDash([4, 4]);
+          ctx.beginPath();
+          const startCx = Math.floor(-HALF_W / broadCellSize);
+          const endCx = Math.ceil(HALF_W / broadCellSize);
+          for (let cx = startCx; cx <= endCx; cx += 1) {
+            const px = Math.round(toX(cx * broadCellSize)) + 0.5;
+            ctx.moveTo(px, arenaTop);
+            ctx.lineTo(px, arenaTop + arenaH);
+          }
+          const startCy = Math.floor(-HALF_H / broadCellSize);
+          const endCy = Math.ceil(HALF_H / broadCellSize);
+          for (let cy = startCy; cy <= endCy; cy += 1) {
+            const py = Math.round(toY(cy * broadCellSize)) + 0.5;
+            ctx.moveTo(arenaLeft, py);
+            ctx.lineTo(arenaLeft + arenaW, py);
+          }
+          ctx.stroke();
+          ctx.setLineDash([]);
+          ctx.restore();
+        }
+
+        // 1. Render static wall bodies from Isotope snapshot
+        for (const [, body] of entries) {
+          if (!body.static || !body.collider || !body.position) continue;
+          const col = body.collider;
+          if (col.type !== 'RectangleCollider') continue;
+          const cx = toX(body.position.x);
+          const cy = toY(body.position.y);
+          const wPx = col.width * scale;
+          const hPx = col.height * scale;
+
+          ctx.fillStyle = '#1d2942';
+          ctx.strokeStyle = '#3b4f7a';
+          ctx.lineWidth = 1.5;
+          ctx.fillRect(cx - wPx / 2, cy - hPx / 2, wPx, hPx);
+          ctx.strokeRect(cx - wPx / 2, cy - hPx / 2, wPx, hPx);
+        }
+
+        // 2. Render motion trails
+        if (showTrailsToggle.checked) {
+          for (const [id, pts] of trails.entries()) {
+            if (pts.length < 2) continue;
+            const color = bodyColor(id);
+            for (let i = 1; i < pts.length; i += 1) {
+              const alpha = (i / pts.length) * 0.35;
+              ctx.strokeStyle = color;
+              ctx.globalAlpha = alpha;
+              ctx.lineWidth = Math.max(1.5, 3.2 * (i / pts.length));
+              ctx.beginPath();
+              ctx.moveTo(toX(pts[i - 1].x), toY(pts[i - 1].y));
+              ctx.lineTo(toX(pts[i].x), toY(pts[i].y));
+              ctx.stroke();
+            }
+            ctx.globalAlpha = 1.0;
+          }
+        }
+
+        // 3. Render dynamic bodies (squares & circles)
+        for (const [id, body] of entries) {
+          if (body.static || !body.collider || !body.position) continue;
+          const col = body.collider;
+          const cx = toX(body.position.x);
+          const cy = toY(body.position.y);
+          const color = bodyColor(id);
+          const flash = impactFlashes.get(id) || 0;
+
+          ctx.save();
+          if (flash > 0) {
+            ctx.shadowColor = '#ffffff';
+            ctx.shadowBlur = 14 * flash;
+          }
+
+          if (col.type === 'CircleCollider') {
+            const rPx = col.radius * scale;
+            ctx.beginPath();
+            ctx.arc(cx, cy, rPx, 0, Math.PI * 2);
+            ctx.fillStyle = color;
+            ctx.globalAlpha = 0.28 + flash * 0.45;
+            ctx.fill();
+            ctx.globalAlpha = 1.0;
+            ctx.lineWidth = 2.2 + flash * 1.6;
+            ctx.strokeStyle = flash > 0.35 ? '#ffffff' : color;
+            ctx.stroke();
+          } else if (col.type === 'RectangleCollider') {
+            const wPx = col.width * scale;
+            const hPx = col.height * scale;
+            ctx.fillStyle = color;
+            ctx.globalAlpha = 0.28 + flash * 0.45;
+            ctx.fillRect(cx - wPx / 2, cy - hPx / 2, wPx, hPx);
+            ctx.globalAlpha = 1.0;
+            ctx.lineWidth = 2.2 + flash * 1.6;
+            ctx.strokeStyle = flash > 0.35 ? '#ffffff' : color;
+            ctx.strokeRect(cx - wPx / 2, cy - hPx / 2, wPx, hPx);
+          }
+          ctx.restore();
+
+          // Velocity vector arrow
+          if (showVelToggle.checked && body.velocity) {
+            const vx = body.velocity.x;
+            const vy = body.velocity.y;
+            const speed = Math.hypot(vx, vy);
+            if (speed > 0.05) {
+              const vecScale = 0.22;
+              const endX = toX(body.position.x + vx * vecScale);
+              const endY = toY(body.position.y + vy * vecScale);
+              drawArrow(cx, cy, endX, endY, 'rgba(248, 250, 252, 0.88)');
+            }
+          }
+
+          // Body ID label
+          if (showIdsToggle.checked) {
+            ctx.fillStyle = '#f8fafc';
+            ctx.font = '600 12px ui-monospace, SFMono-Regular, Menlo, monospace';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(`#${id}`, cx, cy);
+          }
+        }
+      }
+
+      function tickLoop(now) {
+        const rawDt = Math.max(0, (now - lastRafTime) / 1000);
+        lastRafTime = now;
+        const frameDt = Math.min(rawDt, 0.1);
+
+        // FPS tracking
+        fpsFrames += 1;
+        if (now - fpsWindowStart >= 500) {
+          currentFps = Math.round((fpsFrames * 1000) / (now - fpsWindowStart));
+          fpsFrames = 0;
+          fpsWindowStart = now;
+          statFps.textContent = String(currentFps);
+        }
+
+        // Fixed-timestep driver with backpressure guard (wait for previous server update)
+        if (connected && sceneReady && isPlaying) {
+          accumulator = Math.min(accumulator + frameDt, FIXED_DT * 2);
+          if (accumulator >= FIXED_DT && !stepInFlight) {
+            accumulator -= FIXED_DT;
+            stepSimulation();
+          }
+        } else {
+          accumulator = 0;
+        }
+
+        renderScene(frameDt);
+        requestAnimationFrame(tickLoop);
+      }
+
+      // Event bindings
+      connectBtn.addEventListener('click', connectWebSocket);
+
+      wsUrlInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') connectWebSocket();
+      });
+
+      playPauseBtn.addEventListener('click', () => {
+        isPlaying = !isPlaying;
+        updatePlayPauseButton();
+      });
+
+      stepBtn.addEventListener('click', () => {
+        if (!connected || !sceneReady) return;
+        isPlaying = false;
+        updatePlayPauseButton();
+        stepSimulation();
+      });
+
+      resetBtn.addEventListener('click', resetAndRandomize);
+
+      addSquareBtn.addEventListener('click', () => spawnBody('square'));
+      addCircleBtn.addEventListener('click', () => spawnBody('circle'));
+
+      bouncinessSlider.addEventListener('input', () => {
+        bouncinessVal.textContent = Number(bouncinessSlider.value).toFixed(2);
+      });
+
+      async function sendCellSize(cellSize) {
+        if (!connected || !sceneReady) return;
+        try {
+          const res = await sendRequest({
+            action: 'set_cell_size',
+            scene_id: currentSceneId,
+            cell_size: cellSize
+          });
+          if (res.scene) {
+            ingestSceneSnapshot(res.scene, { detectImpacts: false });
+          }
+        } catch (err) {
+          console.error('Failed to update broad grid cell size:', err);
+        }
+      }
+
+      function syncGridControlsUi() {
+        const isAuto = gridAutoToggle.checked;
+        gridSizeSlider.disabled = isAuto;
+        if (isAuto) {
+          const eff = latestScene && (latestScene.effective_cell_size ?? latestScene.cell_size);
+          gridSizeVal.textContent = eff != null ? `Auto (${Number(eff).toFixed(2)})` : 'Auto';
+        } else {
+          gridSizeVal.textContent = Number(gridSizeSlider.value).toFixed(2);
+        }
+      }
+
+      gravityToggle.addEventListener('change', () => {
+        applyLiveGravityToggle();
+      });
+
+      gridAutoToggle.addEventListener('change', () => {
+        if (!gridAutoToggle.checked && latestScene && latestScene.effective_cell_size != null) {
+          const clamped = Math.max(0.5, Math.min(10, Math.round(latestScene.effective_cell_size * 4) / 4));
+          gridSizeSlider.value = String(clamped);
+        }
+        syncGridControlsUi();
+        sendCellSize(gridAutoToggle.checked ? null : Number(gridSizeSlider.value));
+      });
+
+      gridSizeSlider.addEventListener('input', () => {
+        syncGridControlsUi();
+        if (!gridAutoToggle.checked) {
+          sendCellSize(Number(gridSizeSlider.value));
+        }
+      });
+
+      squaresCountInput.addEventListener('change', () => clampCount(squaresCountInput));
+      circlesCountInput.addEventListener('change', () => clampCount(circlesCountInput));
+
+      canvas.addEventListener('click', (e) => {
+        if (!connected || !sceneReady) return;
+        const rect = canvas.getBoundingClientRect();
+        const px = e.clientX - rect.left;
+        const py = e.clientY - rect.top;
+        const { toWorld } = worldTransform(rect.width, rect.height);
+        const worldPos = toWorld(px, py);
+
+        // Only spawn when clicking inside the arena interior
+        if (Math.abs(worldPos.x) >= HALF_W || Math.abs(worldPos.y) >= HALF_H) return;
+
+        const shape = clickSpawnSquareNext ? 'square' : 'circle';
+        clickSpawnSquareNext = !clickSpawnSquareNext;
+        spawnBody(shape, worldPos);
+      });
+
+      window.addEventListener('keydown', (e) => {
+        if (e.code === 'Space' && e.target.tagName !== 'INPUT' && e.target.tagName !== 'BUTTON') {
+          e.preventDefault();
+          if (connected && sceneReady) {
+            isPlaying = !isPlaying;
+            updatePlayPauseButton();
+          }
+        }
+      });
+
+      window.addEventListener('beforeunload', sendDeleteBestEffort);
+
+      // Initialize UI & start
+      wsUrlInput.value = defaultWsUrl();
+      bouncinessVal.textContent = Number(bouncinessSlider.value).toFixed(2);
+      updatePlayPauseButton();
+      connectWebSocket();
+      requestAnimationFrame(tickLoop);
+    })();
+  </script>
+</body>
+</html>
